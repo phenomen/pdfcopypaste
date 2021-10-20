@@ -1,5 +1,13 @@
 <template>
   <div>
+    <Head lang="en-US">
+      <Title>PDF Copypaste</Title>
+      <Meta
+        name="description"
+        content="Easy way to fix PDF copypasting issues"
+      />
+    </Head>
+
     <div class="container px-4 mx-auto">
       <div class="hero min-h-screen">
         <div class="text-center hero-content">
