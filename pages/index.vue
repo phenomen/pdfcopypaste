@@ -35,8 +35,9 @@
               "
               >{{ fixedCopy }}</textarea
             >
+            <p>Fixed text is automatically copied to clipboard on click</p>
           </div>
-          <p class="mt-12 text-sm">
+          <p class="mt-12 text-sm text-gray-500 ">
             PDF Copypaste is an open source app by @Phenomen.
             <a
               class="link link-primary"
