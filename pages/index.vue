@@ -28,7 +28,10 @@
             <textarea
               class="textarea h-64 textarea-success textarea-bordered"
               placeholder="Ctrl+C"
-              @focus="$event.target.select()"
+              @focus="
+                $event.target.select();
+                navigator.clipboard.writeText(fixedCopy);
+              "
               >{{ fixedCopy }}</textarea
             >
           </div>
