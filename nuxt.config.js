@@ -1,14 +1,15 @@
-import { defineNuxtConfig } from 'nuxt3'
+import { defineNuxtConfig } from "nuxt3";
 
 export default defineNuxtConfig({
+  target: "static",
   build: {
     postcss: {
       postcssOptions: {
         plugins: {
           tailwindcss: {},
           autoprefixer: {},
-        }
-      }
+        },
+      },
     },
-  }
-})
+  },
+});
