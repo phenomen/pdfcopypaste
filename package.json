@@ -5,7 +5,7 @@
     "build": "nuxt build",
     "start": "node .output/server/index.mjs"
   },
-  "devDependencies": {
+  "dependencies": {
     "autoprefixer": "^10.3.7",
     "daisyui": "^1.14.6",
     "nuxt3": "latest",
