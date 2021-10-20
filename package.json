@@ -1,16 +1,20 @@
 {
+  "name": "pdfcopypaste",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "generate": "nuxt generate",
-    "start": "nuxt start"
+    "start": "nuxt start",
+    "generate": "nuxt generate"
   },
   "dependencies": {
-    "nuxt": "latest"
+    "core-js": "^3.18.3",
+    "daisyui": "^1.14.6",
+    "nuxt": "^2.15.8"
   },
   "devDependencies": {
-    "postcss": "^8",
-    "@nuxtjs/tailwindcss": "latest",
-    "daisyui": "latest"
+    "@nuxtjs/tailwindcss": "^4.2.1",
+    "postcss": "^8.3.10"
   }
 }
