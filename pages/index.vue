@@ -58,7 +58,8 @@ export default {
     fixedCopy: function() {
       return this.originalCopy
         .replace(/(\r\n|\n|\r)/g, " ")
-        .replaceAll("‑ ", "");
+        .replaceAll("‑ ", "")
+        .replaceAll("  ", " ");
     }
   }
 };
