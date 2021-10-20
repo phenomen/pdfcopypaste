@@ -6,10 +6,13 @@
     "start": "node .output/server/index.mjs"
   },
   "dependencies": {
-    "autoprefixer": "^10.3.7",
-    "daisyui": "^1.14.6",
+    "@vue/reactivity": "latest",
+    "@vue/shared": "latest",
+    "autoprefixer": "latest",
+    "daisyui": "latest",
     "nuxt3": "latest",
-    "postcss": "^8.3.9",
-    "tailwindcss": "^2.2.17"
+    "postcss": "latest",
+    "tailwindcss": "latest",
+    "vue@next": "latest"
   }
 }
