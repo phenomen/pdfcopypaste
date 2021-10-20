@@ -1,8 +1,8 @@
 <template>
-  <div class="container px-4 mx-auto">
+  <div class="container max-w-full px-4 mx-auto bg-gray-200">
     <div class="hero min-h-screen">
       <div class="text-center hero-content">
-        <div class="max-w-5xl">
+        <div class="max-w-full">
           <h1 class="mb-3 text-4xl uppercase font-bold">
             PDF Copypaste
           </h1>
@@ -12,10 +12,10 @@
           </p>
           <div class="form-control">
             <label class="label">
-              <span class="label-text">Original Text</span>
+              <span class="label-text font-bold">Original Text</span>
             </label>
             <textarea
-              class="textarea h-64 textarea-primary textarea-bordered"
+              class="textarea h-64 textarea-bordered"
               placeholder="Ctrl+V"
               v-model="originalCopy"
             ></textarea>
@@ -23,7 +23,7 @@
 
           <div class="form-control">
             <label class="label">
-              <span class="label-text">Fixed Text</span>
+              <span class="label-text font-bold">Fixed Text</span>
             </label>
             <textarea
               class="textarea h-64 textarea-success textarea-bordered"
