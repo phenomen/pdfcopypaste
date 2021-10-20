@@ -18,6 +18,7 @@
               class="textarea h-64 textarea-bordered"
               placeholder="Ctrl+V"
               v-model="originalCopy"
+              @focus="$event.target.select()"
             ></textarea>
           </div>
 
@@ -28,7 +29,10 @@
             <textarea
               class="textarea h-64 textarea-success textarea-bordered"
               placeholder="Ctrl+C"
-              @focus="$event.target.select()"
+              @focus="
+                $event.target.select();
+                copyClipboard(fixedCopy);
+              "
               >{{ fixedCopy }}</textarea
             >
           </div>
@@ -54,6 +58,13 @@ export default {
       originalCopy: ""
     };
   },
+
+  methods: {
+    copyClipboard(text) {
+      navigator.clipboard.writeText(text);
+    }
+  },
+
   computed: {
     fixedCopy: function() {
       return this.originalCopy
