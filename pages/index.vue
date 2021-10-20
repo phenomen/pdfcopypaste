@@ -35,6 +35,7 @@
               <textarea
                 class="textarea h-64 textarea-success textarea-bordered"
                 placeholder="Ctrl+C"
+                @focus="$event.target.select()"
                 v-model="fixedCopy"
               ></textarea>
             </div>
