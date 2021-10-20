@@ -1,18 +1,16 @@
 {
-  "private": true,
   "scripts": {
-    "dev": "nuxt dev",
+    "dev": "nuxt",
     "build": "nuxt build",
-    "start": "node .output/server/index.mjs"
+    "generate": "nuxt generate",
+    "start": "nuxt start"
   },
   "dependencies": {
-    "@vue/reactivity": "latest",
-    "@vue/shared": "latest",
-    "autoprefixer": "latest",
-    "daisyui": "latest",
-    "nuxt3": "latest",
-    "postcss": "latest",
-    "tailwindcss": "latest",
-    "vue@next": "latest"
+    "nuxt": "latest"
+  },
+  "devDependencies": {
+    "postcss": "^8",
+    "@nuxtjs/tailwindcss": "latest",
+    "daisyui": "latest"
   }
 }

@@ -1,8 +1,7 @@
-- nuxt3
 - daisyui
-- postcss
+- postcss8
+- nuxt.js
 - tailwindcss
-- autoprefixer
 
 ---
 
@@ -11,7 +10,4 @@ npm install
 ```
 ```
 npm run dev
-```
-```
-npm run start
 ```
