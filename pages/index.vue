@@ -12,17 +12,19 @@
       <div class="hero min-h-screen">
         <div class="text-center hero-content">
           <div class="max-w-5xl">
-            <h1 class="mb-5 text-5xl font-bold">PDF Copypaste</h1>
-            <p class="mb-5">
+            <h1 class="mb-3 text-4xl uppercase font-bold">
+              PDF Copypaste
+            </h1>
+            <p class="mb-5 text-gray-500 text-sm">
               An app to remove linebreaks and hyphenations when copypasting text
-              from PDF.
+              from PDF
             </p>
             <div class="form-control">
               <label class="label">
                 <span class="label-text">Original Text</span>
               </label>
               <textarea
-                class="textarea h-64 textarea-bordered"
+                class="textarea h-64 textarea-primary textarea-bordered"
                 placeholder="Ctrl+V"
                 v-model="originalCopy"
               ></textarea>
@@ -39,14 +41,13 @@
                 v-model="fixedCopy"
               ></textarea>
             </div>
-            <p class="mt-12">
+            <p class="mt-12 text-sm">
               PDF Copypaste is an open source app by @Phenomen.
               <a
-                class="link"
+                class="link link-primary"
                 href="https://github.com/Phenomen/pdfcopypaste"
                 target="_blank"
-              >
-                GitHub
+                >GitHub
               </a>
             </p>
           </div>
@@ -57,18 +58,18 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        originalCopy: "",
-      };
-    },
-    computed: {
-      fixedCopy() {
-        return this.originalCopy
-          .replace(/(\r\n|\n|\r)/g, " ")
-          .replaceAll("‑ ", "");
-      },
-    },
-  };
+export default {
+  data() {
+    return {
+      originalCopy: ""
+    };
+  },
+  computed: {
+    fixedCopy() {
+      return this.originalCopy
+        .replace(/(\r\n|\n|\r)/g, " ")
+        .replaceAll("‑ ", "");
+    }
+  }
+};
 </script>
