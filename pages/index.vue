@@ -30,6 +30,16 @@
                 v-model="fixedCopy"
               ></textarea>
             </div>
+            <p class="mt-12">
+              PDF Copypaste is an open source app by @Phenomen.
+              <a
+                class="link"
+                href="https://github.com/Phenomen/pdfcopypaste"
+                target="_blank"
+              >
+                GitHub
+              </a>
+            </p>
           </div>
         </div>
       </div>
@@ -47,8 +57,8 @@
     computed: {
       fixedCopy() {
         return this.originalCopy
-          .replace(/-/g, "")
-          .replace(/(\r\n|\n|\r)/gm, " ");
+          .replace(/(\r\n|\n|\r)/g, " ")
+          .replaceAll("‑ ", "");
       },
     },
   };
