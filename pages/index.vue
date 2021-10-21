@@ -14,7 +14,7 @@
               <span class="label-text font-bold">Original Text</span>
             </label>
             <textarea
-              class="textarea h-64 textarea-bordered"
+              class="textarea md:h-64 h-32 textarea-bordered"
               placeholder="Ctrl+V"
               v-model="originalCopy"
               @focus="$event.target.select()"
@@ -26,7 +26,7 @@
               <span class="label-text font-bold">Fixed Text</span>
             </label>
             <textarea
-              class="textarea h-64 textarea-success textarea-bordered"
+              class="textarea md:h-64 h-32 textarea-success textarea-bordered"
               placeholder="Ctrl+C"
               @focus="
                 $event.target.select();
