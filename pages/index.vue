@@ -92,6 +92,7 @@ export default {
       return this.originalCopy
         .replace(/(\r\n|\n|\r)/g, " ")
         .replaceAll("‑ ", "")
+        .replaceAll("- ", "")
         .replaceAll("  ", " ");
     }
   }
