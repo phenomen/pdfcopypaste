@@ -28,10 +28,7 @@
             <textarea
               class="textarea md:h-64 h-32 textarea-success textarea-bordered"
               placeholder="Ctrl+C"
-              @focus="
-                $event.target.select();
-                copyClipboard(fixedCopy);
-              "
+              @focus="$event.target.select()"
               >{{ fixedCopy }}</textarea
             >
 
@@ -51,10 +48,12 @@
                     d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   ></path>
                 </svg>
-                <label
-                  >Fixed text is automatically copied to clipboard on
-                  click</label
+                <button
+                  v-on:click="copyClipboard(fixedCopy)"
+                  class="btn btn-outline btn-wide"
                 >
+                  COPY TO CLIPBOARD
+                </button>
               </div>
             </div>
           </div>
@@ -92,7 +91,8 @@ export default {
       return this.originalCopy
         .replace(/(\r\n|\n|\r)/g, " ")
         .replaceAll("‑ ", "")
-        .replaceAll("  ", " ");
+        .replaceAll("  ", " ")
+        .replaceAll("‑", "-");
     }
   }
 };
