@@ -92,7 +92,8 @@ export default {
         .replace(/(\r\n|\n|\r)/g, " ")
         .replaceAll("‑ ", "")
         .replaceAll("  ", " ")
-        .replaceAll("‑", "-");
+        .replaceAll("‑", "-")
+        .replaceAll("- ", "");
     }
   }
 };
