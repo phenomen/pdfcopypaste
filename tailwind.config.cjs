@@ -6,8 +6,8 @@ const config = {
 	theme: {
 		extend: {}
 	},
-	plugins: [daisyui],
 
+	plugins: [daisyui],
 	daisyui: {
 		themes: false
 	}
