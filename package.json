@@ -1,20 +1,24 @@
 {
-  "name": "pdfcopypaste",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
-  },
-  "dependencies": {
-    "core-js": "^3.20.2",
-    "daisyui": "^1.21.0",
-    "nuxt": "^2.15.8"
-  },
-  "devDependencies": {
-    "@nuxtjs/tailwindcss": "^4.2.1",
-    "postcss": "^8.4.5"
-  }
+	"name": "pdfcopypaste",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "svelte-kit dev",
+		"build": "svelte-kit build",
+		"package": "svelte-kit package",
+		"preview": "svelte-kit preview",
+		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
+		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/kit": "next",
+		"prettier": "^2.5.1",
+		"prettier-plugin-svelte": "^2.5.1",
+		"svelte": "^3.44.3",
+		"svelte-preprocess": "^4.10.1",
+		"autoprefixer": "^10.4.1",
+		"tailwindcss": "^3.0.10",
+		"daisyui": "^1.21.0"
+	},
+	"type": "module"
 }
