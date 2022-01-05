@@ -10,10 +10,9 @@
 
 	$: fixedCopy = originalCopy
 		.replace(/(\r\n|\n|\r)/g, ' ')
-		.replaceAll('‑ ', '')
-		.replaceAll('  ', ' ')
-		.replaceAll('‑', '-')
-		.replaceAll('- ', '');
+		.replace(/  /g, ' ')
+		.replace(/- /g, '')
+		.replace(/‑/g, '-');
 </script>
 
 <SvelteToast />
