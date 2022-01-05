@@ -1,4 +1,6 @@
 <script>
+	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+
 	let originalCopy = '';
 	let fixedCopy = '';
 
@@ -14,9 +16,13 @@
 		.replaceAll('- ', '');
 </script>
 
+<SvelteToast />
+
 <div class="max-w-screen-sm md:max-w-screen-md mx-auto min-h-screen">
 	<div class="mx-5">
-		<h1 class="pt-5 text-4xl uppercase font-bold text-center">PDFCOPYPASTE</h1>
+		<h1 class="pt-5 text-4xl uppercase font-bold text-center">
+			<span class="text-blue-600">PDF</span>COPYPASTE
+		</h1>
 		<p class="mb-5 text-gray-500 text-sm text-center">Очистка текста от переносов строк и слов.</p>
 		<div class="form-control">
 			<textarea
@@ -34,7 +40,11 @@
 			/>
 
 			<div class="my-5">
-				<button on:click={() => copyClipboard(fixedCopy)} class="btn btn-block">
+				<button
+					on:click={() => copyClipboard(fixedCopy)}
+					on:click={() => toast.push('Текст скопирован в буфер')}
+					class="btn btn-block"
+				>
 					Скопировать в буфер обмена
 				</button>
 			</div>
