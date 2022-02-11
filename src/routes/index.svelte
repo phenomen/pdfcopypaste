@@ -20,7 +20,7 @@
 <div class="mx-auto min-h-screen max-w-screen-lg">
 	<div class="mx-5">
 		<h1 class="pt-5 text-center text-4xl font-bold uppercase">
-			<span class="text-blue-600">PDF</span>COPYPASTE
+			<span class="text-indigo-600">PDF</span>COPYPASTE
 		</h1>
 		<p class="mb-5 text-center text-sm text-gray-500">Очистка текста от переносов строк и слов</p>
 
