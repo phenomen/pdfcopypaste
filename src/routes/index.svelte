@@ -17,15 +17,15 @@
 
 <SvelteToast />
 
-<div class="max-w-screen-sm md:max-w-screen-md mx-auto min-h-screen">
+<div class="mx-auto min-h-screen max-w-screen-sm md:max-w-screen-md">
 	<div class="mx-5">
-		<h1 class="pt-5 text-4xl uppercase font-bold text-center">
+		<h1 class="pt-5 text-center text-4xl font-bold uppercase">
 			<span class="text-blue-600">PDF</span>COPYPASTE
 		</h1>
-		<p class="mb-5 text-gray-500 text-sm text-center">Очистка текста от переносов строк и слов.</p>
+		<p class="mb-5 text-center text-sm text-gray-500">Очистка текста от переносов строк и слов.</p>
 		<div class="form-control">
 			<textarea
-				class="textarea md:h-64 h-32 textarea-bordered"
+				class="textarea-bordered textarea h-32 md:h-64"
 				placeholder="Ctrl+V — вставьте оригинальный текст"
 				bind:value={originalCopy}
 			/>
@@ -33,7 +33,7 @@
 
 		<div class="form-control my-5">
 			<textarea
-				class="textarea md:h-64 h-32 textarea-success textarea-bordered"
+				class="textarea-bordered textarea-success textarea h-32 md:h-64"
 				placeholder="Ctrl+C — скопируйте исправленный текст"
 				bind:value={fixedCopy}
 			/>
@@ -48,9 +48,9 @@
 				</button>
 			</div>
 		</div>
-		<p class="mty-10 text-sm text-gray-500 text-center">
+		<p class="mty-10 text-center text-sm text-gray-500">
 			Приложение PDFCOPYPASTE создано @Phenomen. Исходный код доступен на
-			<a class="link link-primary" href="https://github.com/Phenomen/pdfcopypaste" target="_blank"
+			<a class="link-primary link" href="https://github.com/Phenomen/pdfcopypaste" target="_blank"
 				>GitHub
 			</a>
 		</p>
