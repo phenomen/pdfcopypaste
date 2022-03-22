@@ -53,14 +53,8 @@
 			</button>
 		</div>
 		<p class="mty-10 text-center text-sm text-gray-500">
-			Приложение PDFCOPYPASTE создано <span class="font-medium">Phenomen#1337</span>. Исходный код
-			доступен на
-			<a
-				class="text-indigo-600 underline"
-				href="https://github.com/Phenomen/pdfcopypaste"
-				target="_blank"
-				>GitHub
-			</a>
+			Приложение PDFCOPYPASTE создано <span class="font-medium">Phenomen#1337</span>. Исходный код доступен на
+			<a class="text-indigo-600 underline" href="https://github.com/Phenomen/pdfcopypaste" target="_blank">GitHub </a>
 		</p>
 	</div>
 </div>
