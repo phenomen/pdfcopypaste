@@ -26,33 +26,37 @@
 		<p class="mb-5 text-center text-sm text-gray-500">Очистка текста от переносов строк и слов</p>
 
 		<div class="flex w-full flex-row space-x-2">
-			<div class="form-control flex-1">
+			<div class="flex-1">
 				<textarea
-					class="textarea h-96 w-full rounded border border-gray-400 p-2"
+					class="form-textarea h-96 w-full rounded border border-indigo-600 p-2"
 					placeholder="Ctrl+V — вставьте оригинальный текст"
 					bind:value={originalCopy}
 				/>
+				<button
+					on:click={() => (originalCopy = '')}
+					class="w-full justify-center rounded-md border border-transparent bg-indigo-600 py-3 text-sm font-medium text-white hover:bg-indigo-700"
+				>
+					Очистить текст
+				</button>
 			</div>
 
-			<div class="form-control flex-1">
+			<div class="flex-1">
 				<textarea
-					class="textarea h-96 w-full rounded border border-emerald-400 p-2"
+					class="form-textarea h-96 w-full rounded border border-emerald-400 p-2"
 					placeholder="Ctrl+C — скопируйте исправленный текст"
 					bind:value={fixedCopy}
 				/>
+				<button
+					on:click={() => copyClipboard(fixedCopy)}
+					on:click={() => toast.push('Текст скопирован в буфер')}
+					class="w-full justify-center rounded-md border border-transparent bg-emerald-600 py-3 text-sm font-medium text-white hover:bg-emerald-700"
+				>
+					Скопировать в буфер
+				</button>
 			</div>
 		</div>
 
-		<div class="my-5">
-			<button
-				on:click={() => copyClipboard(fixedCopy)}
-				on:click={() => toast.push('Текст скопирован в буфер')}
-				class="w-full justify-center rounded-md border border-transparent bg-indigo-600 py-3 text-sm font-medium text-white hover:bg-indigo-700"
-			>
-				Скопировать в буфер обмена
-			</button>
-		</div>
-		<p class="mty-10 text-center text-sm text-gray-500">
+		<p class="mt-10 text-center text-sm text-gray-500">
 			Приложение PDFCOPYPASTE создано <span class="font-medium">Phenomen#1337</span>. Исходный код доступен на
 			<a class="text-indigo-600 underline" href="https://github.com/Phenomen/pdfcopypaste" target="_blank">GitHub </a>
 		</p>
