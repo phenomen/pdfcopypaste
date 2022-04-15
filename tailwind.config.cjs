@@ -4,9 +4,6 @@ const config = {
 	theme: {
 		extend: {},
 	},
-	plugins: [
-		require('@tailwindcss/forms')
-	  ],
 };
 
 module.exports = config;

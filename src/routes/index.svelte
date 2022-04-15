@@ -56,12 +56,10 @@
 			</div>
 		</div>
 
-		<p class="mt-10 text-center text-sm text-gray-500">
+		<p class="mt-10 text-center text-sm text-gray-400 md:mt-20">
 			Приложение <span class="font-medium">PDFCOPYPASTE</span> создано
 			<span class="font-medium">Phenomen#1337</span>. Исходный код доступен на
-			<a class="text-indigo-600 underline" href="https://github.com/phenomen/pdfcopypaste" target="_blank">
-				GitHub
-			</a>
+			<a class="text-indigo-500 underline" href="https://github.com/phenomen/pdfcopypaste" target="_blank"> GitHub </a>
 		</p>
 	</div>
 </div>
