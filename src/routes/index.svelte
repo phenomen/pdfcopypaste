@@ -9,10 +9,14 @@
 	}
 
 	async function translate(text) {
-		const deeplKey = import.meta.env.VITE_DEEPL;
-		const deeplApi = 'https://api-free.deepl.com/v2/translate?auth_key=' + deeplKey + '&text=' + text + '&target_lang=RU';
-		const response = await fetch(deeplApi, { method: 'POST' });
-		console.log(response);
+		const response = await fetch('/api/deepl', { method: 'POST', body: JSON.stringify({ text: text }) })
+			.then((response) => response.json())
+			.then((data) => {
+				fixedCopy = data.translations[0].text;
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
 	}
 
 	$: fixedCopy = originalCopy
