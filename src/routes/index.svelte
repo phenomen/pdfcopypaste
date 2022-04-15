@@ -66,7 +66,7 @@
 				</button>
 				<button
 					on:click={() => translate(fixedCopy)}
-					class="mt-5 w-full justify-center rounded-md border border-transparent bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700"
+					class="mt-2 w-full justify-center rounded-md border border-transparent bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700"
 				>
 					Перевести
 				</button>
