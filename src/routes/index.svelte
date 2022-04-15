@@ -8,6 +8,13 @@
 		navigator.clipboard.writeText(text);
 	}
 
+	async function translate(text) {
+		const deeplKey = import.meta.env.VITE_DEEPL;
+		const deeplApi = 'https://api-free.deepl.com/v2/translate?auth_key=' + deeplKey + '&text=' + text + '&target_lang=RU';
+		const response = await fetch(deeplApi, { method: 'POST' });
+		console.log(response);
+	}
+
 	$: fixedCopy = originalCopy
 		.replace(/(\r\n|\n|\r)/g, ' ')
 		.replace(/  /g, ' ')
@@ -52,6 +59,12 @@
 					class="w-full justify-center rounded-md border border-transparent bg-emerald-600 py-3 text-sm font-medium text-white hover:bg-emerald-700"
 				>
 					Скопировать в буфер
+				</button>
+				<button
+					on:click={() => translate(fixedCopy)}
+					class="mt-5 w-full justify-center rounded-md border border-transparent bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700"
+				>
+					Перевести
 				</button>
 			</div>
 		</div>
