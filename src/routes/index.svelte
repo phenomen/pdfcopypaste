@@ -21,11 +21,10 @@
 
 	$: fixedCopy = originalCopy
 		.replace(/(\r\n|\n|\r)/g, ' ')
+		.replace(/	/g, ' ')
 		.replace(/  /g, ' ')
 		.replace(/- /g, '')
 		.replace(/‑ /g, '')
-		.replace(/‑/g, '-')
-		.replace(/	/g, '')
 		.replace(/‑/g, '-');
 </script>
 
