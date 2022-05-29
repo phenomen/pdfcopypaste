@@ -28,6 +28,11 @@
 		.replace(/‑/g, '-');
 </script>
 
+<svelte:head>
+	<title>PDFCOPYPASTE</title>
+	<meta name="description" content="Исправление текста при копировании из PDF" />
+</svelte:head>
+
 <SvelteToast />
 
 <div class="mx-auto min-h-screen max-w-screen-lg">
