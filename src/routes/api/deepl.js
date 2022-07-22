@@ -1,19 +1,18 @@
+import * as deepl from 'deepl-node';
+
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export async function post({ request }) {
-	const deeplKey = import.meta.env.VITE_DEEPL;
+export async function POST({ request }) {
+	const deeplKey = import.meta.env.VITE_DEEPL_KEY || import.meta.env.DEEPL_KEY;
+	const translator = new deepl.Translator(deeplKey);
 	const { text } = await request.json();
 
-	const deeplApi = 'https://api-free.deepl.com/v2/translate?auth_key=' + deeplKey + '&text=' + text + '&target_lang=RU';
+	let result = await translator.translateText(text, 'en', 'ru').catch((error) => {
+		console.error(error);
+	});
 
-	const translation = await fetch(deeplApi).then((response) => response.json());
-
-	if (translation) {
+	if (result) {
 		return {
-			body: translation,
+			body: result,
 		};
 	}
-
-	return {
-		status: 404,
-	};
 }
