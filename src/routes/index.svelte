@@ -79,13 +79,3 @@
 		<a class="text-indigo-500 underline" href="https://github.com/phenomen/pdfcopypaste" target="_blank"> GitHub </a>
 	</div>
 </div>
-
-<style>
-	button {
-		@apply flex w-full items-center justify-center gap-1 rounded-md border border-transparent py-3 text-sm font-medium text-white;
-	}
-
-	textarea {
-		@apply h-96 w-full rounded border border-slate-600 p-2;
-	}
-</style>
