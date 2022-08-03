@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 button {
-	@apply flex w-full items-center justify-center gap-1 rounded-md border border-transparent py-3 text-sm font-medium text-white;
+	@apply flex w-full items-center justify-center gap-1 rounded-md border border-transparent py-3 text-xs font-medium text-white md:text-sm;
 }
 
 textarea {
-	@apply h-96 w-full rounded border border-slate-600 p-2;
+	@apply h-48 w-full rounded border border-slate-600 p-2 sm:h-64 md:h-96;
 }
