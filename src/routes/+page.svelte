@@ -10,7 +10,7 @@
 		const response = await fetch('/api/deepl', { method: 'POST', body: JSON.stringify({ text: text }) })
 			.then((response) => response.json())
 			.then((data) => {
-				fixedCopy = data.text;
+				fixedCopy = data.translation;
 			})
 			.catch((error) => {
 				console.error('Error:', error);

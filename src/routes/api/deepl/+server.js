@@ -1,3 +1,5 @@
+import { json, error } from '@sveltejs/kit';
+
 import * as deepl from 'deepl-node';
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
@@ -7,12 +9,12 @@ export async function POST({ request }) {
 	const { text } = await request.json();
 
 	let result = await translator.translateText(text, 'en', 'ru').catch((error) => {
-		console.error(error);
+		throw error(400, 'something wrong');
 	});
 
-	if (result) {
-		return {
-			body: result,
-		};
-	}
+	let translation = result.text;
+
+	return json({
+		translation,
+	});
 }
