@@ -9,7 +9,7 @@ export async function POST({ request }) {
 	const { text } = await request.json();
 
 	let result = await translator.translateText(text, 'en', 'ru').catch((error) => {
-		throw error(400, 'something wrong');
+		throw error;
 	});
 
 	let translation = result.text;

@@ -1,11 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 button {
 	@apply flex w-full items-center justify-center gap-1 rounded-md border border-transparent py-3 text-xs font-medium text-white md:text-sm;
 }
 
 textarea {
 	@apply h-48 w-full rounded border border-slate-600 p-2 sm:h-64 md:h-96;
+}
+
+.icon {
+	@apply w-6 h-6;
 }
