@@ -10,8 +10,8 @@
 	},
 	"devDependencies": {
 		"@iconify-json/tabler": "^1.1.31",
-		"@sveltejs/adapter-netlify": "next",
-		"@sveltejs/kit": "next",
+		"@sveltejs/adapter-netlify": "^1.0.0-next.76",
+		"@sveltejs/kit": "^1.0.0-next.476",
 		"deepl-node": "^1.5.0",
 		"prettier": "^2.7.1",
 		"prettier-plugin-svelte": "^2.7.0",
