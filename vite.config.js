@@ -19,7 +19,7 @@ const config = {
 		exclude: ['svu', 'svu/*'],
 	},
 	ssr: {
-		noExternal: ['svu', 'svu/*'],
+		noExternal: ['devalue', 'svu', 'svu/*'],
 	},
 };
 
