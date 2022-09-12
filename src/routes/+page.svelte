@@ -1,8 +1,10 @@
 <script>
 	import { copy, paste } from 'svu/action';
+	import { onMount } from 'svelte';
 
 	let originalCopy = '';
 	let fixedCopy = '';
+	$: theme = 'light';
 
 	async function translate(text) {
 		const response = await fetch('/api/deepl', { method: 'POST', body: JSON.stringify({ text: text }) })
@@ -15,9 +17,32 @@
 			});
 	}
 
+	onMount(async () => {
+		theme = localStorage.theme;
+
+		if (theme === 'dark') {
+			document.documentElement.classList.add('dark');
+		} else {
+			document.documentElement.classList.remove('dark');
+		}
+	});
+
+	function themeToggle() {
+		if (localStorage.theme != 'dark') {
+			document.documentElement.classList.add('dark');
+			theme = 'dark';
+			localStorage.theme = 'dark';
+		} else {
+			document.documentElement.classList.remove('dark');
+			localStorage.theme = 'light';
+			theme = 'light';
+		}
+	}
+
 	$: fixedCopy = originalCopy
 		.replace(/(\r\n|\n|\r|	)/g, ' ')
 		.replace(/(  )/g, ' ')
+		.replace(//g, '')
 		.replace(/‑/g, '-')
 		.replace(/- /g, '');
 </script>
@@ -63,6 +88,10 @@
 				</button>
 			</div>
 		</div>
+	</div>
+
+	<div class="my-10 w-6 mx-auto">
+		<button class="icon  {theme === 'dark' ? 'i-tabler-sun' : 'i-tabler-moon text-slate-500'}" on:click={() => themeToggle()} />
 	</div>
 
 	<div class="mt-10 text-center text-xs text-slate-500 dark:text-slate-300">

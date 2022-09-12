@@ -1,3 +1,8 @@
+html,
+body {
+	@apply dark:bg-slate-900;
+}
+
 button {
 	@apply flex w-full items-center justify-center gap-1 rounded-md border border-transparent py-3 text-xs font-medium text-white md:text-sm;
 }

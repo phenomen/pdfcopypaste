@@ -1,6 +1,6 @@
 {
 	"name": "pdfcopypaste",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -9,16 +9,16 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@iconify-json/tabler": "^1.1.31",
+		"@iconify-json/tabler": "^1.1.33",
 		"@sveltejs/adapter-netlify": "^1.0.0-next.76",
-		"@sveltejs/kit": "^1.0.0-next.476",
-		"deepl-node": "^1.5.0",
+		"@sveltejs/kit": "^1.0.0-next.480",
+		"deepl-node": "^1.6.0",
 		"prettier": "^2.7.1",
 		"prettier-plugin-svelte": "^2.7.0",
-		"svelte": "^3.50.0",
+		"svelte": "^3.50.1",
 		"svelte-preprocess": "^4.10.7",
 		"svu": "^0.2.1",
-		"unocss": "^0.45.18",
+		"unocss": "^0.45.21",
 		"vite": "3.1.0"
 	},
 	"type": "module"
