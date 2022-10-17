@@ -1,6 +1,4 @@
 <script>
-	import { copy, paste } from 'svu/action';
-
 	let originalCopy = '';
 	let fixedCopy = '';
 
@@ -13,6 +11,10 @@
 			.catch((error) => {
 				console.error('Error:', error);
 			});
+	}
+
+	function copyClipboard(text) {
+		navigator.clipboard.writeText(text);
 	}
 
 	$: fixedCopy = originalCopy
@@ -31,11 +33,11 @@
 			placeholder="Ctrl+V — вставьте оригинальный текст"
 			bind:value={originalCopy}
 		/>
-		<div class="mt-2 flex gap-1 sm:gap-2">
-			<button use:paste={'#originalCopyArea'} class="bg-blue-600  hover:bg-blue-700"
-				><span class="icon i-tabler-book-upload" /> Вставить из буфера
-			</button>
-			<button on:click={() => (originalCopy = '')} class="bg-slate-800 hover:bg-slate-900 dark:hover:bg-slate-700">
+		<div class="mt-2 flex">
+			<button
+				on:click={() => (originalCopy = '')}
+				class="bg-slate-800 hover:bg-slate-900 dark:hover:bg-slate-700"
+			>
 				<span class="icon i-tabler-eraser" /> Очистить
 			</button>
 		</div>
@@ -50,10 +52,15 @@
 			bind:value={fixedCopy}
 		/>
 		<div class="mt-2 flex gap-1 sm:gap-2">
-			<button use:copy={'#fixedCopyArea'} class="bg-blue-600  hover:bg-blue-700"
+			<button
+				on:click={() => copyClipboard(fixedCopy)}
+				class="bg-blue-600  hover:bg-blue-700"
 				><span class="icon i-tabler-book-download" /> Скопировать в буфер
 			</button>
-			<button on:click={() => translate(fixedCopy)} class="bg-slate-800 hover:bg-slate-900 dark:hover:bg-slate-700">
+			<button
+				on:click={() => translate(fixedCopy)}
+				class="bg-slate-800 hover:bg-slate-900 dark:hover:bg-slate-700"
+			>
 				<span class="icon i-tabler-language" /> Перевести
 			</button>
 		</div>
