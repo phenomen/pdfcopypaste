@@ -4,7 +4,7 @@
 	$: theme = 'light';
 
 	onMount(async () => {
-		theme = localStorage.theme;
+		theme = localStorage.theme || 'light';
 
 		if (theme === 'dark') {
 			document.documentElement.classList.add('dark');
@@ -27,5 +27,8 @@
 </script>
 
 <div class="my-10 w-6 mx-auto">
-	<button class="icon  {theme === 'dark' ? 'i-tabler-sun' : 'i-tabler-moon text-slate-500'}" on:click={() => themeToggle()} />
+	<button
+		class="icon  {theme === 'dark' ? 'i-tabler-sun' : 'i-tabler-moon text-slate-500'}"
+		on:click={() => themeToggle()}
+	/>
 </div>
