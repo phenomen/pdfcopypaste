@@ -36,8 +36,7 @@
 		<div class="mt-2 flex">
 			<button
 				on:click={() => (originalCopy = '')}
-				class="bg-slate-800 hover:bg-slate-900 dark:hover:bg-slate-700"
-			>
+					>
 				<span class="icon i-tabler-eraser" /> Очистить
 			</button>
 		</div>
@@ -54,14 +53,7 @@
 		<div class="mt-2 flex gap-1 sm:gap-2">
 			<button
 				on:click={() => copyClipboard(fixedCopy)}
-				class="bg-blue-600  hover:bg-blue-700"
-				><span class="icon i-tabler-book-download" /> Скопировать в буфер
-			</button>
-			<button
-				on:click={() => translate(fixedCopy)}
-				class="bg-slate-800 hover:bg-slate-900 dark:hover:bg-slate-700"
-			>
-				<span class="icon i-tabler-language" /> Перевести
+							><span class="icon i-tabler-book-download" /> Скопировать в буфер
 			</button>
 		</div>
 	</div>
