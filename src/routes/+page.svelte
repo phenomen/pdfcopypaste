@@ -2,17 +2,6 @@
 	let originalCopy = '';
 	let fixedCopy = '';
 
-	async function translate(text) {
-		const response = await fetch('/api/deepl', { method: 'POST', body: JSON.stringify({ text: text }) })
-			.then((response) => response.json())
-			.then((data) => {
-				fixedCopy = data.translation;
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
-	}
-
 	function copyClipboard(text) {
 		navigator.clipboard.writeText(text);
 	}
@@ -34,9 +23,7 @@
 			bind:value={originalCopy}
 		/>
 		<div class="mt-2 flex">
-			<button
-				on:click={() => (originalCopy = '')}
-					>
+			<button on:click={() => (originalCopy = '')}>
 				<span class="icon i-tabler-eraser" /> Очистить
 			</button>
 		</div>
@@ -51,10 +38,7 @@
 			bind:value={fixedCopy}
 		/>
 		<div class="mt-2 flex gap-1 sm:gap-2">
-			<button
-				on:click={() => copyClipboard(fixedCopy)}
-							><span class="icon i-tabler-book-download" /> Скопировать в буфер
-			</button>
+			<button on:click={() => copyClipboard(fixedCopy)}><span class="icon i-tabler-book-download" /> Скопировать в буфер </button>
 		</div>
 	</div>
 </div>

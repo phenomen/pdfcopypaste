@@ -1,8 +1,7 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import Unocss from 'unocss/vite'
-import { presetIcons, presetUno, extractorSvelte } from 'unocss'
-import transformerDirective from '@unocss/transformer-directives'
-
+import Unocss from 'unocss/vite';
+import { presetIcons, presetUno, extractorSvelte } from 'unocss';
+import transformerDirective from '@unocss/transformer-directives';
 
 /** @type {import('vite').UserConfig} */
 const config = {

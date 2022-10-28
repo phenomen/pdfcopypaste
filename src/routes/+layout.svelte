@@ -1,6 +1,6 @@
 <script>
-	import '@unocss/reset/tailwind.css';
 	import 'uno.css';
+	import '@unocss/reset/antfu.css';
 	import '../app.css';
 
 	import Header from '$lib/components/Header.svelte';
