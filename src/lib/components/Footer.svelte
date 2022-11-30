@@ -1,10 +1,10 @@
-<div class="mt-10 text-center text-xs">
+<div class="my-4 text-center text-xs">
 	<a
-		class="text-blue-600 underline"
+		class="text-blue-500 underline"
 		href="https://github.com/phenomen/pdfcopypaste"
 		target="_blank"
 		rel="noreferrer"
 	>
-		phenomen/pdfcopypaste @ github
+		@phenomen/pdfcopypaste
 	</a>
 </div>

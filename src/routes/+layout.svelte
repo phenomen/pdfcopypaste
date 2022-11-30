@@ -1,6 +1,6 @@
 <script>
 	import 'uno.css';
-	import '@unocss/reset/antfu.css';
+	import '@unocss/reset/tailwind.css';
 	import '../app.css';
 
 	import Header from '$lib/components/Header.svelte';
@@ -8,7 +8,7 @@
 	import LightSwitch from '$lib/components/LightSwitch.svelte';
 </script>
 
-<div class="mx-auto max-w-7xl px-2 font-sans">
+<div class="flex flex-col h-full px-2 mx-auto w-full max-w-7xl">
 	<Header />
 	<slot />
 	<LightSwitch />

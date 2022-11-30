@@ -14,7 +14,7 @@
 		.replace(/- /g, '');
 </script>
 
-<div class="flex w-full flex-col gap-2 sm:flex-row">
+<div class="flex flex-col gap-2 sm:flex-row mx-auto w-full">
 	<div class="flex-1">
 		<textarea
 			id="originalCopyArea"

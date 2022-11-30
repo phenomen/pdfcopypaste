@@ -1,6 +1,6 @@
 html,
 body {
-	--at-apply: 'dark:bg-slate-900';
+	--at-apply: 'font-sans dark:bg-slate-900 h-full max-w-7xl mx-auto';
 }
 
 button {

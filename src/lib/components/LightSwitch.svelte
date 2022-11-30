@@ -26,7 +26,7 @@
 	}
 </script>
 
-<div class="my-10 w-6 mx-auto">
+<div class="my-10 w-6 mx-auto flex-1">
 	<button
 		class="icon  {theme === 'dark' ? 'i-tabler-sun' : 'i-tabler-moon text-slate-500'}"
 		on:click={() => themeToggle()}
