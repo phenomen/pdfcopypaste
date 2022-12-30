@@ -7,7 +7,7 @@
 	}
 
 	function toSentenceCase() {
-		let textarea = document.getElementById('fixedCopyArea');
+		var textarea = document.getElementById('fixedCopyArea');
 
 		var start = textarea.selectionStart;
 		var end = textarea.selectionEnd;
