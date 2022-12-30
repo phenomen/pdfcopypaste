@@ -7,14 +7,14 @@
 	}
 
 	function toSentenceCase() {
-		var textarea = document.getElementById('fixedCopyArea');
+		let textarea = document.getElementById('fixedCopyArea');
 
-		var start = textarea.selectionStart;
-		var end = textarea.selectionEnd;
-		var selectedText = textarea.value.substring(start, end);
+		let start = textarea.selectionStart;
+		let end = textarea.selectionEnd;
+		let selectedText = textarea.value.substring(start, end);
 
-		var newText = '';
-		for (var i = 0; i < selectedText.length; i++) {
+		let newText = '';
+		for (let i = 0; i < selectedText.length; i++) {
 			if (i === 0) {
 				newText += selectedText[i].toUpperCase();
 			} else if (selectedText[i - 1] === '.') {
