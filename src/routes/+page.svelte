@@ -6,6 +6,26 @@
 		navigator.clipboard.writeText(text);
 	}
 
+	function toSentenceCase() {
+		let textarea = document.getElementById('fixedCopyArea');
+
+		var start = textarea.selectionStart;
+		var end = textarea.selectionEnd;
+		var selectedText = textarea.value.substring(start, end);
+
+		var newText = '';
+		for (var i = 0; i < selectedText.length; i++) {
+			if (i === 0) {
+				newText += selectedText[i].toUpperCase();
+			} else if (selectedText[i - 1] === '.') {
+				newText += ' ' + selectedText[i].toUpperCase();
+			} else {
+				newText += selectedText[i].toLowerCase();
+			}
+		}
+		textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
+	}
+
 	$: fixedCopy = originalCopy
 		.replace(/(\r\n|\n|\r|	)/g, ' ')
 		.replace(/(  )/g, ' ')
@@ -39,6 +59,8 @@
 		/>
 		<div class="mt-2 flex gap-1 sm:gap-2">
 			<button on:click={() => copyClipboard(fixedCopy)}><span class="icon i-tabler-book-download" /> Скопировать в буфер </button>
+
+			<button on:click={() => toSentenceCase()}><span class="icon i-tabler-letter-case" /> Исправить регистр </button>
 		</div>
 	</div>
 </div>
