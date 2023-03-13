@@ -2,7 +2,7 @@
 	import { marked } from 'marked';
 
 	let textarea: HTMLTextAreaElement;
-	let originalCopy: string = '';
+	let fixedCopy: string = '';
 
 	function copyClipboard(text: string) {
 		navigator.clipboard.writeText(text);
@@ -52,32 +52,25 @@
 		fixedCopy = textarea.value.substring(0, selectionStart) + newText + textarea.value.substring(selectionEnd);
 	}
 
-	$: fixedCopy = originalCopy
-		.replace(/(\r\n|\n|\r|	)/g, ' ')
-		.replace(/(  )/g, ' ')
-		.replace(//g, '')
-		.replace(/‑/g, '-')
-		.replace(/- /g, '');
+	function formatLinebraks() {
+		fixedCopy = fixedCopy
+			.replace(/(\r\n|\n|\r|	)/g, ' ')
+			.replace(/(  )/g, ' ')
+			.replace(//g, '')
+			.replace(/‑/g, '-')
+			.replace(/- /g, '');
+	}
 
 	$: markCopy = marked.parse(fixedCopy);
 </script>
 
-<div class="grid grid-cols-3 gap-2 mx-auto w-full">
-	<div class="col-span-1">
-		<textarea
-			id="originalCopyArea"
-			class=" dark:bg-slate-800 dark:text-white"
-			placeholder="Вставьте оригинальный текст"
-			bind:value={originalCopy}
-		/>
-	</div>
-
-	<div class="col-span-2">
+<div class="gap-2 mx-auto w-full">
+	<div>
 		<textarea
 			id="fixedCopyArea"
 			name="fixedCopyArea"
 			class="dark:bg-slate-800 dark:text-white"
-			placeholder="Исправленный текст и форматирование"
+			placeholder="Вставьте текст для исправления. Используйте инструменты ниже для форматирования и копирования."
 			bind:value={fixedCopy}
 			bind:this={textarea}
 		/>
@@ -85,6 +78,10 @@
 </div>
 
 <div class="mt-2 flex gap-1 sm:gap-2">
+	<button
+		on:click={() => formatLinebraks()}
+		title="Исправление разрывов слов и переносов"><span class="icon i-tabler-text-wrap" /></button
+	>
 	<button
 		on:click={() => formatMarkdown('Normalize')}
 		title="Нормализация регистра"><span class="icon i-tabler-text-size" /></button
@@ -126,7 +123,7 @@
 		title="Разделитель"><span class="icon i-tabler-line-dashed" /></button
 	>
 	<button
-		on:click={() => (originalCopy = '')}
+		on:click={() => (fixedCopy = '')}
 		title="Очистка текста"><span class="icon i-tabler-eraser" /></button
 	>
 	<button
@@ -137,7 +134,7 @@
 
 <details
 	open
-	class="mt-8 w-full max-w-7xl mx-auto prose prose-slate p-2 bg-slate-50 rounded dark:bg-slate-800 dark:prose-invert"
+	class="mt-8 w-full max-w-none mx-auto prose prose-slate p-2 bg-slate-50 rounded dark:bg-slate-800 dark:prose-invert"
 >
 	<summary
 		>Предпросмотр и копирование с форматированием (<a

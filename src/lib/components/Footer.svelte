@@ -1,6 +1,6 @@
 <div class="my-4 text-center text-xs">
 	<a
-		class="text-blue-500 underline"
+		class="text-blue-400 underline"
 		href="https://github.com/phenomen/pdfcopypaste"
 		target="_blank"
 		rel="noreferrer"

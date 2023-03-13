@@ -8,7 +8,7 @@
 	import LightSwitch from '$lib/components/LightSwitch.svelte';
 </script>
 
-<div class="flex flex-col h-full px-2 mx-auto w-full max-w-7xl">
+<div class="flex flex-col h-full px-2 mx-auto w-full max-w-5xl">
 	<Header />
 	<slot />
 	<LightSwitch />
