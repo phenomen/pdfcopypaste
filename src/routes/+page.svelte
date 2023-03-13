@@ -1,29 +1,10 @@
-<script>
-	let originalCopy = '';
-	let fixedCopy = '';
+<script lang="ts">
+	import Markdown from '@magidoc/plugin-svelte-marked';
+	let originalCopy: string = '';
+	let fixedCopy: string = '';
 
-	function copyClipboard(text) {
+	function copyClipboard(text: string) {
 		navigator.clipboard.writeText(text);
-	}
-
-	function toSentenceCase() {
-		let textarea = document.getElementById('fixedCopyArea');
-
-		let start = textarea.selectionStart;
-		let end = textarea.selectionEnd;
-		let selectedText = textarea.value.substring(start, end);
-
-		let newText = '';
-		for (let i = 0; i < selectedText.length; i++) {
-			if (i === 0) {
-				newText += selectedText[i].toUpperCase();
-			} else if (selectedText[i - 1] === '.') {
-				newText += ' ' + selectedText[i].toUpperCase();
-			} else {
-				newText += selectedText[i].toLowerCase();
-			}
-		}
-		textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
 	}
 
 	$: fixedCopy = originalCopy
@@ -59,8 +40,16 @@
 		/>
 		<div class="mt-2 flex gap-1 sm:gap-2">
 			<button on:click={() => copyClipboard(fixedCopy)}><span class="icon i-tabler-book-download" /> Скопировать в буфер </button>
-
-			<button on:click={() => toSentenceCase()}><span class="icon i-tabler-letter-case" /> Исправить регистр </button>
 		</div>
 	</div>
 </div>
+
+<details class="mt-8 w-full max-w-5xl mx-auto prose prose-slate p-2 bg-slate-50 rounded dark:bg-slate-800 dark:prose-invert">
+	<summary
+		>Предпросмотр Markdown (<a
+			href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
+			target="_blank">cheatsheet</a
+		>)</summary
+	>
+	<Markdown source={fixedCopy} />
+</details>
