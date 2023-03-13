@@ -14,19 +14,19 @@
 		let newText = '';
 
 		if (mode === 'H1') {
-			newText = `# ${selectedText}`;
+			newText = `# ${selectedText}\n`;
 		} else if (mode === 'H2') {
-			newText = `## ${selectedText}`;
+			newText = `## ${selectedText}\n`;
 		} else if (mode === 'H3') {
-			newText = `## ${selectedText}`;
+			newText = `## ${selectedText}\n`;
 		} else if (mode === 'Bold') {
 			newText = `**${selectedText}**`;
 		} else if (mode === 'Italic') {
 			newText = `_${selectedText}_`;
 		} else if (mode === 'Quote') {
-			newText = `> ${selectedText}`;
+			newText = `> ${selectedText}\n`;
 		} else if (mode === 'Rule') {
-			newText = `---`;
+			newText = `\n---\n`;
 		} else if (mode === 'List') {
 			newText = selectedText
 				.split('\n')
