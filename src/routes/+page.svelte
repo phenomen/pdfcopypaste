@@ -145,7 +145,7 @@
 	class="mt-8 w-full max-w-none mx-auto prose prose-slate p-2 bg-slate-50 rounded dark:bg-slate-800 dark:prose-invert"
 >
 	<summary
-		>Предпросмотр и копирование с форматированием (<a
+		>Предпросмотр форматирования (<a
 			href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
 			target="_blank">справка по Markdown</a
 		>)</summary
