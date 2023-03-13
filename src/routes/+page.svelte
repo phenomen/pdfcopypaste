@@ -65,19 +65,36 @@
 	}
 
 	function handleHotkey(event: KeyboardEvent) {
+		if (event.ctrlKey && event.key === '1') {
+			event.preventDefault();
+			formatMarkdown('H1');
+		}
+		if (event.ctrlKey && event.key === '2') {
+			event.preventDefault();
+			formatMarkdown('H2');
+		}
+		if (event.ctrlKey && event.key === '3') {
+			event.preventDefault();
+			formatMarkdown('H3');
+		}
 		if (event.ctrlKey && (event.key === 'b' || event.key === 'и')) {
+			event.preventDefault();
 			formatMarkdown('Bold');
 		}
 		if (event.ctrlKey && (event.key === 'i' || event.key === 'ш')) {
+			event.preventDefault();
 			formatMarkdown('Italic');
 		}
 		if (event.ctrlKey && (event.key === 'q' || event.key === 'й')) {
+			event.preventDefault();
 			formatMarkdown('Quote');
 		}
 		if (event.ctrlKey && (event.key === 'l' || event.key === 'д')) {
+			event.preventDefault();
 			formatMarkdown('List');
 		}
 		if (event.ctrlKey && (event.key === 'n' || event.key === 'т')) {
+			event.preventDefault();
 			formatMarkdown('Numbers');
 		}
 	}
