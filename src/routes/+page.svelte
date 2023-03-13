@@ -37,6 +37,16 @@
 				.split('\n')
 				.map((line) => `1. ${line}`)
 				.join('\n');
+		} else if (mode === 'Normalize') {
+			for (let i = 0; i < selectedText.length; i++) {
+				if (i === 0) {
+					newText += selectedText[i].toUpperCase();
+				} else if (selectedText[i - 1] === '.') {
+					newText += ' ' + selectedText[i].toUpperCase();
+				} else {
+					newText += selectedText[i].toLowerCase();
+				}
+			}
 		}
 
 		fixedCopy = textarea.value.substring(0, selectionStart) + newText + textarea.value.substring(selectionEnd);
@@ -73,17 +83,54 @@
 </div>
 
 <div class="mt-2 flex gap-1 sm:gap-2">
-	<button on:click={() => formatMarkdown('H1')}><span class="icon i-tabler-h-1" /></button>
-	<button on:click={() => formatMarkdown('H2')}><span class="icon i-tabler-h-2" /></button>
-	<button on:click={() => formatMarkdown('H3')}><span class="icon i-tabler-h-3" /></button>
-	<button on:click={() => formatMarkdown('Bold')}><span class="icon i-tabler-bold" /></button>
-	<button on:click={() => formatMarkdown('Italic')}><span class="icon i-tabler-italic" /></button>
-	<button on:click={() => formatMarkdown('Quote')}><span class="icon i-tabler-quote" /></button>
-	<button on:click={() => formatMarkdown('List')}><span class="icon i-tabler-list" /></button>
-	<button on:click={() => formatMarkdown('Numbers')}><span class="icon i-tabler-list-numbers" /></button>
-	<button on:click={() => formatMarkdown('Rule')}><span class="icon i-tabler-line-dashed" /></button>
-	<button on:click={() => (originalCopy = '')}><span class="icon i-tabler-eraser" /></button>
-	<button on:click={copyClipboard}><span class="icon i-tabler-clipboard-text" /></button>
+	<button
+		on:click={() => formatMarkdown('Normalize')}
+		title="Нормализация регистра"><span class="icon i-tabler-text-size" /></button
+	>
+	<button
+		on:click={() => formatMarkdown('H1')}
+		title="Заголовок 1"><span class="icon i-tabler-h-1" /></button
+	>
+	<button
+		on:click={() => formatMarkdown('H2')}
+		title="Заголовок 2"><span class="icon i-tabler-h-2" /></button
+	>
+	<button
+		on:click={() => formatMarkdown('H3')}
+		title="Заголовок 3"><span class="icon i-tabler-h-3" /></button
+	>
+	<button
+		on:click={() => formatMarkdown('Bold')}
+		title="Полужирный"><span class="icon i-tabler-bold" /></button
+	>
+	<button
+		on:click={() => formatMarkdown('Italic')}
+		title="Курсив"><span class="icon i-tabler-italic" /></button
+	>
+	<button
+		on:click={() => formatMarkdown('Quote')}
+		title="Цитата"><span class="icon i-tabler-quote" /></button
+	>
+	<button
+		on:click={() => formatMarkdown('List')}
+		title="Маркированный список"><span class="icon i-tabler-list" /></button
+	>
+	<button
+		on:click={() => formatMarkdown('Numbers')}
+		title="Нумерованный список"><span class="icon i-tabler-list-numbers" /></button
+	>
+	<button
+		on:click={() => formatMarkdown('Rule')}
+		title="Разделитель"><span class="icon i-tabler-line-dashed" /></button
+	>
+	<button
+		on:click={() => (originalCopy = '')}
+		title="Очистка текста"><span class="icon i-tabler-eraser" /></button
+	>
+	<button
+		on:click={copyClipboard}
+		title="Копирование в буфер"><span class="icon i-tabler-clipboard-text" /></button
+	>
 </div>
 
 <details
