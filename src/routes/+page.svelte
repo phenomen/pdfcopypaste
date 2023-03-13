@@ -85,6 +85,18 @@
 
 <div class="mt-4 flex gap-1 sm:gap-2">
 	<button
+		class="bg-emerald-500"
+		on:click={() => copyClipboard(fixedCopy)}
+		title="Копирование Markdown"><span class="icon i-tabler-markdown" /></button
+	>
+
+	<button
+		class="bg-emerald-500"
+		on:click={() => copyClipboard(markCopy)}
+		title="Копирование HTML"><span class="icon i-tabler-code" /></button
+	>
+	<button
+		class="bg-blue-500"
 		on:click={() => formatLinebraks()}
 		title="Исправление разрывов слов и переносов"><span class="icon i-tabler-text-wrap" /></button
 	>
@@ -132,17 +144,6 @@
 		class="bg-red-500"
 		on:click={() => (fixedCopy = '')}
 		title="Очистка текста"><span class="icon i-tabler-eraser" /></button
-	>
-	<button
-		class="bg-emerald-500"
-		on:click={() => copyClipboard(fixedCopy)}
-		title="Копирование Markdown"><span class="icon i-tabler-markdown" /></button
-	>
-
-	<button
-		class="bg-emerald-500"
-		on:click={() => copyClipboard(markCopy)}
-		title="Копирование HTML"><span class="icon i-tabler-code" /></button
 	>
 </div>
 
