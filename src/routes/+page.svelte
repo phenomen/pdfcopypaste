@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { marked } from 'marked';
 
 	let textarea: HTMLTextAreaElement;
@@ -63,6 +64,31 @@
 		copyClipboard(fixedCopy);
 	}
 
+	function handleHotkey(event: KeyboardEvent) {
+		if (event.ctrlKey && (event.key === 'b' || event.key === 'и')) {
+			formatMarkdown('Bold');
+		}
+		if (event.ctrlKey && (event.key === 'i' || event.key === 'ш')) {
+			formatMarkdown('Italic');
+		}
+		if (event.ctrlKey && (event.key === 'q' || event.key === 'й')) {
+			formatMarkdown('Quote');
+		}
+		if (event.ctrlKey && (event.key === 'l' || event.key === 'д')) {
+			formatMarkdown('List');
+		}
+		if (event.ctrlKey && (event.key === 'n' || event.key === 'т')) {
+			formatMarkdown('Numbers');
+		}
+	}
+
+	onMount(() => {
+		window.addEventListener('keydown', handleHotkey);
+		return () => {
+			window.removeEventListener('keydown', handleHotkey);
+		};
+	});
+
 	$: markCopy = marked.parse(fixedCopy);
 </script>
 
@@ -83,7 +109,13 @@
 	</div>
 </div>
 
-<div class="mt-4 flex gap-1 sm:gap-2">
+<div class="mt-4 grid grid-cols-7 gap-1 sm:gap-2">
+	<button
+		class="bg-blue-500"
+		on:click={() => formatLinebraks()}
+		title="Исправление разрывов слов и переносов"><span class="icon i-tabler-text-wrap" /></button
+	>
+
 	<button
 		class="bg-emerald-500"
 		on:click={() => copyClipboard(fixedCopy)}
@@ -95,11 +127,7 @@
 		on:click={() => copyClipboard(markCopy)}
 		title="Копирование HTML"><span class="icon i-tabler-code" /></button
 	>
-	<button
-		class="bg-blue-500"
-		on:click={() => formatLinebraks()}
-		title="Исправление разрывов слов и переносов"><span class="icon i-tabler-text-wrap" /></button
-	>
+
 	<button
 		on:click={() => formatMarkdown('Normalize')}
 		title="Нормализация регистра"><span class="icon i-tabler-text-size" /></button
@@ -118,23 +146,23 @@
 	>
 	<button
 		on:click={() => formatMarkdown('Bold')}
-		title="Полужирный"><span class="icon i-tabler-bold" /></button
+		title="Полужирный (Ctrl+B)"><span class="icon i-tabler-bold" /></button
 	>
 	<button
 		on:click={() => formatMarkdown('Italic')}
-		title="Курсив"><span class="icon i-tabler-italic" /></button
+		title="Курсив (Ctrl+I)"><span class="icon i-tabler-italic" /></button
 	>
 	<button
 		on:click={() => formatMarkdown('Quote')}
-		title="Цитата"><span class="icon i-tabler-quote" /></button
+		title="Цитата (Ctrl+Q)"><span class="icon i-tabler-quote" /></button
 	>
 	<button
 		on:click={() => formatMarkdown('List')}
-		title="Маркированный список"><span class="icon i-tabler-list" /></button
+		title="Маркированный список (Ctrl+L)"><span class="icon i-tabler-list" /></button
 	>
 	<button
 		on:click={() => formatMarkdown('Numbers')}
-		title="Нумерованный список"><span class="icon i-tabler-list-numbers" /></button
+		title="Нумерованный список (Ctrl+N)"><span class="icon i-tabler-list-numbers" /></button
 	>
 	<button
 		on:click={() => formatMarkdown('Rule')}
