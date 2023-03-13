@@ -4,11 +4,7 @@ body {
 }
 
 button {
-	--at-apply: 'border border-transparent flex w-full items-center justify-center gap-1 rounded-md border border-transparent py-2 text-xs font-medium text-white md:text-sm bg-slate-700 hover:pt-1';
-}
-
-textarea {
-	--at-apply: 'h-48 w-full rounded border border-slate-600 p-2 sm:h-64 md:h-96';
+	--at-apply: 'border border-transparent flex w-full items-center justify-center gap-1 rounded-md border border-transparent py-2 text-xs font-medium text-white md:text-sm bg-slate-600 hover:pt-1';
 }
 
 .icon {

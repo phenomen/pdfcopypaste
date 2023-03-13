@@ -4,7 +4,7 @@
 	import '../app.css';
 
 	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
+
 	import LightSwitch from '$lib/components/LightSwitch.svelte';
 </script>
 
@@ -12,5 +12,4 @@
 	<Header />
 	<slot />
 	<LightSwitch />
-	<Footer />
 </div>

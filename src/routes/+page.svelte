@@ -59,25 +59,31 @@
 			.replace(//g, '')
 			.replace(/‑/g, '-')
 			.replace(/- /g, '');
+
+		copyClipboard(fixedCopy);
 	}
 
 	$: markCopy = marked.parse(fixedCopy);
 </script>
 
-<div class="gap-2 mx-auto w-full">
-	<div>
-		<textarea
-			id="fixedCopyArea"
-			name="fixedCopyArea"
-			class="dark:bg-slate-800 dark:text-white"
-			placeholder="Вставьте текст для исправления. Используйте инструменты ниже для форматирования и копирования."
-			bind:value={fixedCopy}
-			bind:this={textarea}
-		/>
+<div class="gap-2 mx-auto w-full grid grid-cols-2">
+	<textarea
+		id="fixedCopyArea"
+		name="fixedCopyArea"
+		class="dark:bg-slate-800 dark:text-white h-96 w-full rounded border border-slate-600 p-2"
+		placeholder="Вставьте текст для исправления. Используйте инструменты ниже для форматирования и копирования."
+		bind:value={fixedCopy}
+		bind:this={textarea}
+	/>
+
+	<div
+		class="max-h-96 h-96 overflow-y-scroll w-full max-w-none h-full prose prose-slate bg-slate-50 p-2 rounded dark:bg-slate-800 dark:prose-invert"
+	>
+		{@html markCopy}
 	</div>
 </div>
 
-<div class="mt-2 flex gap-1 sm:gap-2">
+<div class="mt-4 flex gap-1 sm:gap-2">
 	<button
 		on:click={() => formatLinebraks()}
 		title="Исправление разрывов слов и переносов"><span class="icon i-tabler-text-wrap" /></button
@@ -140,15 +146,9 @@
 	>
 </div>
 
-<details
-	open
-	class="mt-8 w-full max-w-none mx-auto prose prose-slate p-2 bg-slate-50 rounded dark:bg-slate-800 dark:prose-invert"
->
-	<summary
-		>Предпросмотр форматирования (<a
-			href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
-			target="_blank">справка по Markdown</a
-		>)</summary
+<div class="prose prose-slate dark:prose-invert mx-auto mt-4 text-sm">
+	<a
+		href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
+		target="_blank">Справка по Markdown</a
 	>
-	{@html markCopy}
-</details>
+</div>
