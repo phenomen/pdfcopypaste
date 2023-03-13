@@ -123,12 +123,20 @@
 		title="Разделитель"><span class="icon i-tabler-line-dashed" /></button
 	>
 	<button
+		class="bg-red-500"
 		on:click={() => (fixedCopy = '')}
 		title="Очистка текста"><span class="icon i-tabler-eraser" /></button
 	>
 	<button
+		class="bg-emerald-500"
 		on:click={() => copyClipboard(fixedCopy)}
-		title="Копирование в буфер"><span class="icon i-tabler-clipboard-text" /></button
+		title="Копирование Markdown"><span class="icon i-tabler-markdown" /></button
+	>
+
+	<button
+		class="bg-emerald-500"
+		on:click={() => copyClipboard(markCopy)}
+		title="Копирование HTML"><span class="icon i-tabler-code" /></button
 	>
 </div>
 
@@ -143,10 +151,4 @@
 		>)</summary
 	>
 	{@html markCopy}
-
-	<button
-		class="w-24 my-4"
-		on:click={() => copyClipboard(markCopy)}
-		title="Копирование HTML в буфер"><span class="icon i-tabler-code" /></button
-	>
 </details>

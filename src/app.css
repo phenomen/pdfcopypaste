@@ -4,7 +4,7 @@ body {
 }
 
 button {
-	--at-apply: 'flex w-full items-center justify-center gap-1 rounded-md border border-transparent py-2 text-xs font-medium text-white md:text-sm bg-slate-700 hover:bg-blue-500';
+	--at-apply: 'border border-transparent flex w-full items-center justify-center gap-1 rounded-md border border-transparent py-2 text-xs font-medium text-white md:text-sm bg-slate-700 hover:pt-1';
 }
 
 textarea {
