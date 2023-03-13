@@ -151,15 +151,15 @@
 	>
 	<button
 		on:click={() => formatMarkdown('H1')}
-		title="Заголовок 1"><span class="icon i-tabler-h-1" /></button
+		title="Заголовок 1 (Ctrl+1)"><span class="icon i-tabler-h-1" /></button
 	>
 	<button
 		on:click={() => formatMarkdown('H2')}
-		title="Заголовок 2"><span class="icon i-tabler-h-2" /></button
+		title="Заголовок 2 (Ctrl+2)"><span class="icon i-tabler-h-2" /></button
 	>
 	<button
 		on:click={() => formatMarkdown('H3')}
-		title="Заголовок 3"><span class="icon i-tabler-h-3" /></button
+		title="Заголовок 3 (Ctrl+3)"><span class="icon i-tabler-h-3" /></button
 	>
 	<button
 		on:click={() => formatMarkdown('Bold')}
