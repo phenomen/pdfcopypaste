@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Markdown from '@magidoc/plugin-svelte-marked';
+	import { marked } from 'marked';
 
 	let textarea: HTMLTextAreaElement;
 	let originalCopy: string = '';
 
-	function copyClipboard() {
-		navigator.clipboard.writeText(fixedCopy);
+	function copyClipboard(text: string) {
+		navigator.clipboard.writeText(text);
 	}
 
 	function formatMarkdown(mode: string) {
@@ -58,6 +58,8 @@
 		.replace(//g, '')
 		.replace(/‑/g, '-')
 		.replace(/- /g, '');
+
+	$: markCopy = marked.parse(fixedCopy);
 </script>
 
 <div class="grid grid-cols-3 gap-2 mx-auto w-full">
@@ -128,7 +130,7 @@
 		title="Очистка текста"><span class="icon i-tabler-eraser" /></button
 	>
 	<button
-		on:click={copyClipboard}
+		on:click={() => copyClipboard(fixedCopy)}
 		title="Копирование в буфер"><span class="icon i-tabler-clipboard-text" /></button
 	>
 </div>
@@ -143,5 +145,11 @@
 			target="_blank">справка по Markdown</a
 		>)</summary
 	>
-	<Markdown source={fixedCopy} />
+	{@html markCopy}
+
+	<button
+		class="w-24 my-4"
+		on:click={() => copyClipboard(markCopy)}
+		title="Копирование HTML в буфер"><span class="icon i-tabler-code" /></button
+	>
 </details>
