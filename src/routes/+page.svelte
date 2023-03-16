@@ -67,7 +67,7 @@
 			id="textCopy"
 			name="textCopy"
 			disabled={loading}
-			placeholder="Paste the text here. Use the formatting tools below."
+			placeholder="Paste your text here. Use the formatting tools below."
 			class=" h-96 w-full rounded border border-gray-600 p-2 disabled:cursor-not-allowed disabled:bg-gray-300"
 			bind:value={textCopy}
 			autocomplete="off"
@@ -79,30 +79,26 @@
 		<button
 			type="button"
 			class="bg-blue-500 hover:bg-blue-600"
-			on:click={() => formatSimple()}
-			title="Быстрое исправление"><TablerTextWrap /> Quick Fix</button
+			on:click={() => formatSimple()}><TablerTextWrap /> Quick Fix</button
 		>
 
 		<button
 			type="button"
 			on:click={() => formatAI()}
 			class="bg-gray-900 hover:bg-black disabled:animate-pulse disabled:cursor-not-allowed"
-			disabled={loading}
-			title="AI исправление"><TablerBrandOpenai /> AI Fix</button
+			disabled={loading}><TablerBrandOpenai /> AI Fix</button
 		>
 
 		<button
 			type="button"
 			class="bg-emerald-500 hover:bg-emerald-600"
-			on:click={() => copyClipboard(textCopy)}
-			title="Копирование в буфер"><TablerClipboardText /> Copy</button
+			on:click={() => copyClipboard(textCopy)}><TablerClipboardText /> Copy</button
 		>
 
 		<button
 			type="button"
 			class="bg-red-500 hover:bg-red-600"
-			on:click={() => (textCopy = '')}
-			title="Очистка текста"><TablerEraser /> Clear</button
+			on:click={() => (textCopy = '')}><TablerEraser /> Clear</button
 		>
 	</div>
 
