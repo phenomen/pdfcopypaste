@@ -39,7 +39,7 @@
 
 			loading = false;
 
-			if (response.message.content) {
+			if (response.message.content !== undefined || response.message.content !== null) {
 				textCopy = response.message.content;
 				errorMessage = '';
 			} else {

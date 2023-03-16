@@ -6,7 +6,7 @@ import { json } from '@sveltejs/kit';
 export async function POST({ request }) {
 	const data = await request.json();
 
-	const question = data.textCopy;
+	const question = data.textCopy as string;
 
 	let dialog: ChatCompletionRequestMessage[] = [];
 
@@ -31,8 +31,6 @@ export async function POST({ request }) {
 	});
 
 	const message = response.data.choices[0].message as ChatCompletionRequestMessage;
-
-	console.log(message);
 
 	return json({
 		message,
