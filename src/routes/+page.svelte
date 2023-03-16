@@ -29,9 +29,9 @@
 		errorMessage = '';
 
 		if (textCopy.length < 20) {
-			errorMessage = 'Текст слишком короткий.';
+			errorMessage = 'Text is too short.';
 		} else if (textCopy.length > 1500) {
-			errorMessage = 'Длинна текста для AI форматирования не может превышать 1500 символов.';
+			errorMessage = 'The text length for AI formatting cannot exceed 1500 characters.';
 		} else {
 			const data = { textCopy };
 
@@ -46,7 +46,7 @@
 				textCopy = response.message.content;
 			} else {
 				console.log(response);
-				errorMessage = 'Что-то пошло не так';
+				errorMessage = 'Something went wrong :(';
 			}
 		}
 
@@ -58,7 +58,7 @@
 	<h1 class="text-4xl font-bold uppercase">
 		<span class="text-blue-500">PDF</span>COPYPASTE
 	</h1>
-	<span class="text-gray-400">Автоматическое исправление разрывов строк и слов</span>
+	<span class="text-gray-400">Automatic correction of line and word breaks</span>
 </div>
 
 <div>
@@ -67,8 +67,8 @@
 			id="textCopy"
 			name="textCopy"
 			disabled={loading}
-			placeholder="Вставьте текст для исправления. Используйте инструменты форматирования ниже."
-			class=" h-96 w-full rounded border border-gray-600 p-2 disabled:cursor-not-allowed disabled:bg-gray-100"
+			placeholder="Paste the text here. Use the formatting tools below."
+			class=" h-96 w-full rounded border border-gray-600 p-2 disabled:cursor-not-allowed disabled:bg-gray-300"
 			bind:value={textCopy}
 			autocomplete="off"
 			required
@@ -80,7 +80,7 @@
 			type="button"
 			class="bg-blue-500 hover:bg-blue-600"
 			on:click={() => formatSimple()}
-			title="Быстрое исправление"><TablerTextWrap /> Быстрое исправление</button
+			title="Быстрое исправление"><TablerTextWrap /> Quick Fix</button
 		>
 
 		<button
@@ -88,21 +88,21 @@
 			on:click={() => formatAI()}
 			class="bg-gray-900 hover:bg-black disabled:animate-pulse disabled:cursor-not-allowed"
 			disabled={loading}
-			title="AI исправление"><TablerBrandOpenai /> AI исправление</button
+			title="AI исправление"><TablerBrandOpenai /> AI Fix</button
 		>
 
 		<button
 			type="button"
 			class="bg-emerald-500 hover:bg-emerald-600"
 			on:click={() => copyClipboard(textCopy)}
-			title="Копирование в буфер"><TablerClipboardText /> Копирование</button
+			title="Копирование в буфер"><TablerClipboardText /> Copy</button
 		>
 
 		<button
 			type="button"
 			class="bg-red-500 hover:bg-red-600"
 			on:click={() => (textCopy = '')}
-			title="Очистка текста"><TablerEraser /> Очистка</button
+			title="Очистка текста"><TablerEraser /> Clear</button
 		>
 	</div>
 
@@ -112,8 +112,8 @@
 </div>
 
 <div class="mx-auto mt-6 text-sm text-gray-500">
-	<p><strong>Быстрое исправление</strong> работает мгновенно, но не сохраняет абзацы.</p>
-	<p><strong>AI исправление</strong> работает медленнее, имеет ограничение на длинну текста, но сохраняет абзацы.</p>
+	<p><strong>Quick Fix</strong> works instantly, but does not preserve paragraphs.</p>
+	<p><strong>AI Fix</strong> works slower, has a character limit, but preserves paragraphs.</p>
 </div>
 
 <div class="mx-auto mt-20 text-sm text-gray-500 flex gap-6">
