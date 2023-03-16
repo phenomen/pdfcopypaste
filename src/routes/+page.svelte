@@ -1,200 +1,137 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { marked } from 'marked';
+	import TablerClipboardText from '~icons/tabler/clipboard-text';
+	import TablerTextWrap from '~icons/tabler/text-wrap';
+	import TablerEraser from '~icons/tabler/eraser';
+	import TablerBrandGithub from '~icons/tabler/brand-github';
+	import TablerBrandOpenai from '~icons/tabler/brand-openai';
+	import TablerBrandVercel from '~icons/tabler/brand-vercel';
 
-	let textarea: HTMLTextAreaElement;
-	let fixedCopy: string = '';
+	let loading = false;
+
+	let textCopy: string = '';
+	let errorMessage: string | undefined = '';
 
 	function copyClipboard(text: string) {
 		navigator.clipboard.writeText(text);
 	}
 
-	function formatMarkdown(mode: string) {
-		const { selectionStart, selectionEnd } = textarea;
-		const selectedText = textarea.value.substring(selectionStart, selectionEnd);
-		let newText = '';
-
-		if (mode === 'H1') {
-			newText = `# ${selectedText}\n`;
-		} else if (mode === 'H2') {
-			newText = `## ${selectedText}\n`;
-		} else if (mode === 'H3') {
-			newText = `## ${selectedText}\n`;
-		} else if (mode === 'Bold') {
-			newText = `**${selectedText}**`;
-		} else if (mode === 'Italic') {
-			newText = `_${selectedText}_`;
-		} else if (mode === 'Quote') {
-			newText = `> ${selectedText}\n`;
-		} else if (mode === 'Rule') {
-			newText = `\n---\n`;
-		} else if (mode === 'List') {
-			newText = selectedText
-				.split('\n')
-				.map((line) => `- ${line}`)
-				.join('\n');
-		} else if (mode === 'Numbers') {
-			newText = selectedText
-				.split('\n')
-				.map((line) => `1. ${line}`)
-				.join('\n');
-		} else if (mode === 'Normalize') {
-			for (let i = 0; i < selectedText.length; i++) {
-				if (i === 0) {
-					newText += selectedText[i].toUpperCase();
-				} else if (selectedText[i - 1] === '.') {
-					newText += ' ' + selectedText[i].toUpperCase();
-				} else {
-					newText += selectedText[i].toLowerCase();
-				}
-			}
-		}
-
-		fixedCopy = textarea.value.substring(0, selectionStart) + newText + textarea.value.substring(selectionEnd);
-	}
-
 	function formatLinebraks() {
-		fixedCopy = fixedCopy
+		textCopy = textCopy
 			.replace(/(\r\n|\n|\r|	)/g, ' ')
 			.replace(/(  )/g, ' ')
 			.replace(//g, '')
 			.replace(/‑/g, '-')
 			.replace(/- /g, '');
-
-		copyClipboard(fixedCopy);
 	}
 
-	function handleHotkey(event: KeyboardEvent) {
-		if (event.ctrlKey && event.key === '1') {
-			event.preventDefault();
-			formatMarkdown('H1');
+	async function formatAI() {
+		loading = true;
+
+		if (textCopy.length < 1500) {
+			const data = { textCopy };
+
+			const res = await fetch('/gpt', {
+				method: 'POST',
+				body: JSON.stringify(data),
+			});
+
+			const response = await res.json();
+
+			if (response.message.content) {
+				textCopy = response.message.content;
+				errorMessage = '';
+			} else {
+				errorMessage = 'Что-то пошло не так';
+			}
+		} else {
+			errorMessage = 'Длинна текста для AI форматирования не может превышать 1500 символов.';
 		}
-		if (event.ctrlKey && event.key === '2') {
-			event.preventDefault();
-			formatMarkdown('H2');
-		}
-		if (event.ctrlKey && event.key === '3') {
-			event.preventDefault();
-			formatMarkdown('H3');
-		}
-		if (event.ctrlKey && (event.key === 'b' || event.key === 'и')) {
-			event.preventDefault();
-			formatMarkdown('Bold');
-		}
-		if (event.ctrlKey && (event.key === 'i' || event.key === 'ш')) {
-			event.preventDefault();
-			formatMarkdown('Italic');
-		}
-		if (event.ctrlKey && (event.key === 'q' || event.key === 'й')) {
-			event.preventDefault();
-			formatMarkdown('Quote');
-		}
-		if (event.ctrlKey && (event.key === 'l' || event.key === 'д')) {
-			event.preventDefault();
-			formatMarkdown('List');
-		}
-		if (event.ctrlKey && (event.key === 'n' || event.key === 'т')) {
-			event.preventDefault();
-			formatMarkdown('Numbers');
-		}
+
+		loading = false;
 	}
-
-	onMount(() => {
-		window.addEventListener('keydown', handleHotkey);
-		return () => {
-			window.removeEventListener('keydown', handleHotkey);
-		};
-	});
-
-	$: markCopy = marked.parse(fixedCopy);
 </script>
 
-<div class="gap-2 mx-auto w-full grid grid-cols-2">
-	<textarea
-		id="fixedCopyArea"
-		name="fixedCopyArea"
-		class="dark:bg-slate-800 dark:text-white h-96 w-full rounded border border-slate-600 p-2"
-		placeholder="Вставьте текст для исправления. Используйте инструменты ниже для форматирования и копирования."
-		bind:value={fixedCopy}
-		bind:this={textarea}
-	/>
+<div class="my-6 text-center ">
+	<h1 class="text-4xl font-bold uppercase">
+		<span class="text-blue-500">PDF</span>COPYPASTE
+	</h1>
+	<span class="text-slate-400">Автоматическое исправление разрывов строк и слов</span>
+</div>
 
-	<div
-		class="max-h-96 h-96 overflow-y-scroll w-full max-w-none h-full prose prose-slate bg-slate-50 p-2 rounded dark:bg-slate-800 dark:prose-invert"
-	>
-		{@html markCopy}
+<div>
+	<div class="gap-2 mx-auto w-full">
+		<textarea
+			id="textCopy"
+			name="textCopy"
+			disabled={loading}
+			placeholder="Вставьте сюда текст для исправления. Используйте инструменты форматирования ниже."
+			class=" h-96 w-full rounded border border-gray-600 p-2 disabled:cursor-not-allowed disabled:bg-gray-100"
+			bind:value={textCopy}
+			autocomplete="off"
+			required
+		/>
+	</div>
+
+	<div class="mt-4 grid grid-cols-4 gap-1 sm:gap-2">
+		<button
+			type="button"
+			class="!bg-blue-500"
+			on:click={() => formatLinebraks()}
+			title="Быстрое исправление"><TablerTextWrap /> Быстрое исправление</button
+		>
+
+		<button
+			type="button"
+			on:click={() => formatAI()}
+			class="!bg-black disabled:animate-pulse disabled:cursor-not-allowed "
+			disabled={loading}
+			title="AI исправление"><TablerBrandOpenai /> AI исправление</button
+		>
+
+		<button
+			type="button"
+			class="!bg-emerald-500"
+			on:click={() => copyClipboard(textCopy)}
+			title="Копирование в буфер"><TablerClipboardText /> Копирование</button
+		>
+
+		<button
+			type="button"
+			class="!bg-red-500"
+			on:click={() => (textCopy = '')}
+			title="Очистка текста"><TablerEraser /> Очистка</button
+		>
+	</div>
+
+	<div class="mt-4 text-center text-gray-500">
+		{errorMessage}
 	</div>
 </div>
 
-<div class="mt-4 grid grid-cols-7 gap-1 sm:gap-2">
-	<button
-		class="bg-blue-500"
-		on:click={() => formatLinebraks()}
-		title="Исправление разрывов слов и переносов"><span class="icon i-tabler-text-wrap" /></button
-	>
-
-	<button
-		class="bg-emerald-500"
-		on:click={() => copyClipboard(fixedCopy)}
-		title="Копирование Markdown"><span class="icon i-tabler-markdown" /></button
-	>
-
-	<button
-		class="bg-emerald-500"
-		on:click={() => copyClipboard(markCopy)}
-		title="Копирование HTML"><span class="icon i-tabler-code" /></button
-	>
-
-	<button
-		on:click={() => formatMarkdown('Normalize')}
-		title="Нормализация регистра"><span class="icon i-tabler-text-size" /></button
-	>
-	<button
-		on:click={() => formatMarkdown('H1')}
-		title="Заголовок 1 (Ctrl+1)"><span class="icon i-tabler-h-1" /></button
-	>
-	<button
-		on:click={() => formatMarkdown('H2')}
-		title="Заголовок 2 (Ctrl+2)"><span class="icon i-tabler-h-2" /></button
-	>
-	<button
-		on:click={() => formatMarkdown('H3')}
-		title="Заголовок 3 (Ctrl+3)"><span class="icon i-tabler-h-3" /></button
-	>
-	<button
-		on:click={() => formatMarkdown('Bold')}
-		title="Полужирный (Ctrl+B)"><span class="icon i-tabler-bold" /></button
-	>
-	<button
-		on:click={() => formatMarkdown('Italic')}
-		title="Курсив (Ctrl+I)"><span class="icon i-tabler-italic" /></button
-	>
-	<button
-		on:click={() => formatMarkdown('Quote')}
-		title="Цитата (Ctrl+Q)"><span class="icon i-tabler-quote" /></button
-	>
-	<button
-		on:click={() => formatMarkdown('List')}
-		title="Маркированный список (Ctrl+L)"><span class="icon i-tabler-list" /></button
-	>
-	<button
-		on:click={() => formatMarkdown('Numbers')}
-		title="Нумерованный список (Ctrl+N)"><span class="icon i-tabler-list-numbers" /></button
-	>
-	<button
-		on:click={() => formatMarkdown('Rule')}
-		title="Разделитель"><span class="icon i-tabler-line-dashed" /></button
-	>
-	<button
-		class="bg-red-500"
-		on:click={() => (fixedCopy = '')}
-		title="Очистка текста"><span class="icon i-tabler-eraser" /></button
-	>
-</div>
-
-<div class="prose prose-slate dark:prose-invert mx-auto mt-4 text-sm">
+<div class="mx-auto mt-20 text-sm text-gray-500 flex gap-6">
 	<a
-		href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
-		target="_blank">Справка по Markdown</a
+		href="https://github.com/phenomen/pdfcopypaste"
+		class="hover:text-gray-900 flex gap-1"
+		target="_blank"
+	>
+		<TablerBrandGithub />
+		@phenomen</a
+	>
+	<a
+		href="https://vercel.com/"
+		class="hover:text-gray-900 flex gap-1"
+		target="_blank"
+	>
+		<TablerBrandVercel />
+		Vercel</a
+	>
+
+	<a
+		href="https://openai.com/"
+		class="hover:text-gray-900 flex gap-1"
+		target="_blank"
+	>
+		<TablerBrandOpenai />
+		OpenAI</a
 	>
 </div>

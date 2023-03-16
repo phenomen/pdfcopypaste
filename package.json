@@ -1,6 +1,6 @@
 {
 	"name": "pdfcopypaste",
-	"version": "1.2",
+	"version": "1.5",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -12,17 +12,19 @@
 		"@iconify-json/tabler": "^1.1.67",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.11.0",
-		"@types/marked": "^4.0.8",
-		"@unocss/preset-typography": "^0.50.4",
-		"@unocss/reset": "^0.50.4",
-		"marked": "^4.2.12",
+		"@unocss/preset-typography": "^0.50.5",
+		"@unocss/reset": "^0.50.5",
 		"prettier": "^2.8.4",
 		"prettier-plugin-svelte": "^2.9.0",
-		"svelte": "^3.56.0",
-		"svelte-preprocess": "^5.0.1",
-		"typescript": "^4.9.5",
-		"unocss": "^0.50.4",
-		"vite": "4.1.4"
+		"svelte": "^3.57.0",
+		"svelte-preprocess": "^5.0.2",
+		"typescript": "^5.0.2",
+		"unocss": "^0.50.5",
+		"vite": "4.2.0",
+		"unplugin-icons": "^0.15.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"openai": "^3.2.1"
+	}
 }

@@ -1,9 +1,11 @@
 html,
 body {
-	--at-apply: 'font-sans dark:bg-slate-900 h-full max-w-7xl mx-auto';
+	--at-apply: 'font-sans dark:bg-slate-900 h-full mx-auto';
 }
 
-button {
+button,
+button[type='submit'],
+button[type='button'] {
 	--at-apply: 'border border-transparent flex w-full items-center justify-center gap-1 rounded-md border border-transparent py-2 text-xs font-medium text-white md:text-sm bg-slate-600 hover:pt-1';
 }
 

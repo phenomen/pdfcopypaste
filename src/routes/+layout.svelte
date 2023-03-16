@@ -2,14 +2,8 @@
 	import 'uno.css';
 	import '@unocss/reset/tailwind.css';
 	import '../app.css';
-
-	import Header from '$lib/components/Header.svelte';
-
-	import LightSwitch from '$lib/components/LightSwitch.svelte';
 </script>
 
-<div class="flex flex-col h-full px-2 mx-auto w-full max-w-5xl">
-	<Header />
+<div class="flex flex-col h-full px-2 mx-auto w-full max-w-4xl">
 	<slot />
-	<LightSwitch />
 </div>

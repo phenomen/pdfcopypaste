@@ -1,6 +1,7 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import Unocss from 'unocss/vite';
-import { presetIcons, presetUno, presetTypography, extractorSvelte, transformerDirectives } from 'unocss';
+import { presetUno, extractorSvelte, transformerDirectives } from 'unocss';
+import Icons from 'unplugin-icons/vite';
 
 /** @type {import('vite').UserConfig} */
 const config = {
@@ -8,9 +9,13 @@ const config = {
 		Unocss({
 			extractors: [extractorSvelte],
 			transformers: [transformerDirectives()],
-			presets: [presetUno(), presetTypography(), presetIcons()],
+			presets: [presetUno()],
 		}),
 		sveltekit(),
+		Icons({
+			compiler: 'svelte',
+			scale: 1.5,
+		}),
 	],
 };
 
