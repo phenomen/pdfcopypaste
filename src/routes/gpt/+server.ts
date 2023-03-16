@@ -13,7 +13,7 @@ export async function POST({ request }) {
 	dialog.push({
 		role: 'system',
 		content:
-			'This text was copied from PDF and has incorrect line and word breaks. Format it by joining strings and words as needed. Preserve paragraphs. Do not add anything extra. Text:',
+			'This text was copied from PDF. It has incorrect line and word breaks. Format it by joining strings and words where needed. Keep paragraphs. Do not add anything extra. Text:',
 	});
 	dialog.push({ role: 'user', content: question });
 
@@ -23,16 +23,21 @@ export async function POST({ request }) {
 
 	const openai = new OpenAIApi(configuration);
 
-	const response = await openai.createChatCompletion({
-		model: 'gpt-3.5-turbo',
-		messages: dialog,
-		temperature: 0,
-		max_tokens: 1000,
-	});
+	try {
+		const response = await openai.createChatCompletion({
+			model: 'gpt-3.5-turbo',
+			messages: dialog,
+			temperature: 0,
+			n: 1,
+			max_tokens: 1000,
+		});
 
-	const message = response.data.choices[0].message as ChatCompletionRequestMessage;
+		const message = response.data.choices[0].message as ChatCompletionRequestMessage;
 
-	return json({
-		message,
-	});
+		return json({
+			message,
+		});
+	} catch (error) {
+		console.error(error);
+	}
 }

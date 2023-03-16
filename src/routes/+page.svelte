@@ -15,7 +15,7 @@
 		navigator.clipboard.writeText(text);
 	}
 
-	function formatLinebraks() {
+	function formatSimple() {
 		textCopy = textCopy
 			.replace(/(\r\n|\n|\r|	)/g, ' ')
 			.replace(/(  )/g, ' ')
@@ -26,8 +26,13 @@
 
 	async function formatAI() {
 		loading = true;
+		errorMessage = '';
 
-		if (textCopy.length < 1500) {
+		if (textCopy.length < 20) {
+			errorMessage = 'Текст слишком короткий.';
+		} else if (textCopy.length > 1500) {
+			errorMessage = 'Длинна текста для AI форматирования не может превышать 1500 символов.';
+		} else {
 			const data = { textCopy };
 
 			const res = await fetch('/gpt', {
@@ -37,16 +42,12 @@
 
 			const response = await res.json();
 
-			loading = false;
-
 			if (response.message.content !== undefined || response.message.content !== null) {
 				textCopy = response.message.content;
-				errorMessage = '';
 			} else {
+				console.log(response);
 				errorMessage = 'Что-то пошло не так';
 			}
-		} else {
-			errorMessage = 'Длинна текста для AI форматирования не может превышать 1500 символов.';
 		}
 
 		loading = false;
@@ -57,7 +58,7 @@
 	<h1 class="text-4xl font-bold uppercase">
 		<span class="text-blue-500">PDF</span>COPYPASTE
 	</h1>
-	<span class="text-slate-400">Автоматическое исправление разрывов строк и слов</span>
+	<span class="text-gray-400">Автоматическое исправление разрывов строк и слов</span>
 </div>
 
 <div>
@@ -66,7 +67,7 @@
 			id="textCopy"
 			name="textCopy"
 			disabled={loading}
-			placeholder="Вставьте сюда текст для исправления. Используйте инструменты форматирования ниже."
+			placeholder="Вставьте текст для исправления. Используйте инструменты форматирования ниже."
 			class=" h-96 w-full rounded border border-gray-600 p-2 disabled:cursor-not-allowed disabled:bg-gray-100"
 			bind:value={textCopy}
 			autocomplete="off"
@@ -77,29 +78,29 @@
 	<div class="mt-4 grid grid-cols-4 gap-1 sm:gap-2">
 		<button
 			type="button"
-			class="!bg-blue-500"
-			on:click={() => formatLinebraks()}
+			class="bg-blue-500 hover:bg-blue-600"
+			on:click={() => formatSimple()}
 			title="Быстрое исправление"><TablerTextWrap /> Быстрое исправление</button
 		>
 
 		<button
 			type="button"
 			on:click={() => formatAI()}
-			class="!bg-black disabled:animate-pulse disabled:cursor-not-allowed "
+			class="bg-gray-900 hover:bg-black disabled:animate-pulse disabled:cursor-not-allowed"
 			disabled={loading}
 			title="AI исправление"><TablerBrandOpenai /> AI исправление</button
 		>
 
 		<button
 			type="button"
-			class="!bg-emerald-500"
+			class="bg-emerald-500 hover:bg-emerald-600"
 			on:click={() => copyClipboard(textCopy)}
 			title="Копирование в буфер"><TablerClipboardText /> Копирование</button
 		>
 
 		<button
 			type="button"
-			class="!bg-red-500"
+			class="bg-red-500 hover:bg-red-600"
 			on:click={() => (textCopy = '')}
 			title="Очистка текста"><TablerEraser /> Очистка</button
 		>
@@ -108,6 +109,11 @@
 	<div class="mt-4 text-center text-gray-500">
 		{errorMessage}
 	</div>
+</div>
+
+<div class="mx-auto mt-6 text-sm text-gray-500">
+	<p><strong>Быстрое исправление</strong> работает мгновенно, но не сохраняет параграфы.</p>
+	<p><strong>AI исправление</strong> работает медленнее, имеет ограничение на длинну текста, но сохраняет параграфы.</p>
 </div>
 
 <div class="mx-auto mt-20 text-sm text-gray-500 flex gap-6">
@@ -137,3 +143,9 @@
 		OpenAI</a
 	>
 </div>
+
+<style lang="postcss">
+	button {
+		@apply flex w-full items-center justify-center gap-1 rounded-md py-2 text-xs font-medium text-white md:text-sm;
+	}
+</style>
