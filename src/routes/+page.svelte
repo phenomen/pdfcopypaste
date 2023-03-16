@@ -37,6 +37,8 @@
 
 			const response = await res.json();
 
+			loading = false;
+
 			if (response.message.content) {
 				textCopy = response.message.content;
 				errorMessage = '';
