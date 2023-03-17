@@ -52,12 +52,12 @@
 						copyClipboard(userPrompt);
 					}
 				} else {
-					errorMessage = 'Something went wrong :(';
+					errorMessage = 'Response timeout. OpenAI GPT is too busy.';
 				}
 			}
 		} catch (error) {
 			console.error(error);
-			errorMessage = 'Something went wrong :(';
+			errorMessage = 'Response timeout. OpenAI GPT is too busy.';
 		} finally {
 			loading = false;
 		}
