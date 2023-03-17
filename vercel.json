@@ -1,7 +1,7 @@
 {
 	"functions": {
 		"/gpt": {
-			"maxDuration": 30
+			"maxDuration": 10
 		}
 	}
 }
