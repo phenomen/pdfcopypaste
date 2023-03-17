@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button {
+	@apply flex w-full items-center justify-center gap-1 rounded-md py-2 font-mono text-xs text-white md:text-sm;
+}

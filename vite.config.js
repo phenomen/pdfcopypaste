@@ -7,9 +7,9 @@ const config = {
 		sveltekit(),
 		Icons({
 			compiler: 'svelte',
-			scale: 1.5,
-		}),
-	],
+			scale: 1.5
+		})
+	]
 };
 
 export default config;

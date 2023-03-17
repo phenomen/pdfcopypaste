@@ -6,19 +6,19 @@ import { json } from '@sveltejs/kit';
 export async function POST({ request }) {
 	const data = await request.json();
 
-	const question = data.textCopy as string;
+	const prompt: string = data.prompt as string;
 
-	let dialog: ChatCompletionRequestMessage[] = [];
+	const dialog: ChatCompletionRequestMessage[] = [];
 
 	dialog.push({
 		role: 'system',
 		content:
-			'This text was copied from PDF. It has incorrect line and word breaks. Format it by joining strings and words where needed. Keep paragraphs. Do not add anything extra. Text:',
+			'This text was copied from PDF. It has incorrect line and word breaks. Format it by joining strings and words where needed. Keep paragraphs. Do not add anything extra. Text:'
 	});
-	dialog.push({ role: 'user', content: question });
+	dialog.push({ role: 'user', content: prompt });
 
 	const configuration = new Configuration({
-		apiKey: OPENAI_API_KEY,
+		apiKey: OPENAI_API_KEY
 	});
 
 	const openai = new OpenAIApi(configuration);
@@ -29,15 +29,18 @@ export async function POST({ request }) {
 			messages: dialog,
 			temperature: 0,
 			n: 1,
-			max_tokens: 1000,
+			max_tokens: 1000
 		});
 
 		const message = response.data.choices[0].message as ChatCompletionRequestMessage;
 
 		return json({
-			message,
+			message
 		});
 	} catch (error) {
 		console.error(error);
+		return json({
+			error
+		});
 	}
 }
