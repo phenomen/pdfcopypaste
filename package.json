@@ -1,6 +1,6 @@
 {
 	"name": "@phenomen/pdfcopypaste",
-	"version": "1.6",
+	"version": "2.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
@@ -36,6 +36,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"openai": "^3.2.1"
+		"@fontsource/inter": "^4.5.15",
+		"@fontsource/fira-code": "^4.5.13",
+		"eventsource-parser": "^0.1.0"
 	}
 }

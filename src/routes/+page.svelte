@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { copy } from '$lib/utils/copy';
+	import { wordCount } from '$lib/utils/string';
+	import { fetchStream } from '$lib/utils/stream';
+
 	import TablerClipboardText from '~icons/tabler/clipboard-text';
 	import TablerTextWrap from '~icons/tabler/text-wrap';
 	import TablerEraser from '~icons/tabler/eraser';
@@ -10,10 +14,6 @@
 	let userPrompt = '';
 	let errorMessage: string | undefined = '';
 
-	function copyClipboard(text: string) {
-		navigator.clipboard.writeText(text);
-	}
-
 	function formatSimple() {
 		userPrompt = userPrompt
 			.replace(/(\r\n|\n|\r|	)/g, ' ')
@@ -23,42 +23,42 @@
 			.replace(/- /g, '');
 
 		if (autoClipboard) {
-			copyClipboard(userPrompt);
+			copy(userPrompt);
 		}
 	}
 
 	async function formatAI() {
-		try {
-			loading = true;
+		if (loading) return;
+
+		if (wordCount(userPrompt) < 10) {
+			errorMessage = 'Text is too short.';
+		} else if (wordCount(userPrompt) > 500) {
+			errorMessage = 'Text length for AI formatting cannot exceed 500 words.';
+		} else {
 			errorMessage = '';
-
-			if (userPrompt.length < 20) {
-				errorMessage = 'Text is too short.';
-			} else if (userPrompt.length > 1500) {
-				errorMessage = 'The text length for AI formatting cannot exceed 1500 characters.';
-			} else {
-				const data = { prompt: userPrompt };
-
-				const res = await fetch('/api/gpt', {
+			loading = true;
+			try {
+				const response = await fetch('/api/gpt', {
 					method: 'POST',
-					body: JSON.stringify(data)
+					body: JSON.stringify({ prompt: userPrompt }),
+					headers: {
+						'content-type': 'application/json'
+					}
+				});
+				if (!response.ok) throw new Error('Response timeout. OpenAI GPT is too busy.');
+
+				userPrompt = '';
+
+				await fetchStream(response, (chunk) => {
+					userPrompt += chunk;
 				});
 
-				const response = await res.json();
-
-				if (response.message && response.message.content) {
-					userPrompt = response.message.content;
-					if (autoClipboard) {
-						copyClipboard(userPrompt);
-					}
-				} else {
-					errorMessage = 'Response timeout. OpenAI GPT is too busy.';
+				if (autoClipboard) {
+					copy(userPrompt);
 				}
+			} catch (err) {
+				errorMessage = 'Something went wrong :(';
 			}
-		} catch (error) {
-			console.error(error);
-			errorMessage = 'Response timeout. OpenAI GPT is too busy.';
-		} finally {
 			loading = false;
 		}
 	}
@@ -71,7 +71,7 @@
 			name="userPrompt"
 			disabled={loading}
 			placeholder="Paste your text here, then use the formatting tools below."
-			class=" h-96 w-full rounded border border-black p-2 shadow-md disabled:animate-pulse disabled:cursor-not-allowed"
+			class=" h-96 w-full rounded border border-black p-2 shadow-md disabled:cursor-not-allowed disabled:bg-gray-200"
 			bind:value={userPrompt}
 			autocomplete="off"
 			required
@@ -92,10 +92,8 @@
 			disabled={loading}><TablerBrandOpenai /> AI Fix</button
 		>
 
-		<button
-			type="button"
-			class="bg-blue-500 hover:bg-blue-600 "
-			on:click={() => copyClipboard(userPrompt)}><TablerClipboardText /> Copy</button
+		<button type="button" class="bg-blue-500 hover:bg-blue-600 " on:click={() => copy(userPrompt)}
+			><TablerClipboardText /> Copy</button
 		>
 
 		<button type="button" class="bg-red-600 hover:bg-red-700" on:click={() => (userPrompt = '')}
@@ -103,15 +101,15 @@
 		>
 	</div>
 
-	<div class="mt-4 text-center text-gray-500">
-		{errorMessage}
+	<div class="mt-4 text-center ">
+		<p class="text-sm font-medium text-gray-600">{errorMessage}</p>
 	</div>
 </div>
 
 <div class="mx-auto mt-4 text-sm text-gray-500">
 	<p><strong>Quick Fix:</strong> instant, does not preserve paragraphs.</p>
 	<p>
-		<strong>AI Fix:</strong> slower, has a character limit, preserves paragraphs.
+		<strong>AI Fix:</strong> slower, 500 words limit, preserves paragraphs.
 	</p>
 </div>
 
@@ -125,7 +123,7 @@
 			bind:checked={autoClipboard}
 		/>
 	</div>
-	<div class="ml-2 text-sm font-medium leading-6">
+	<div class="ml-2 font-mono text-sm font-medium leading-6">
 		<label for="autoClipboard">Copy to clipboard after fix</label>
 	</div>
 </div>

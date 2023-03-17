@@ -2,7 +2,12 @@
 module.exports = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		extend: {}
+		extend: {
+			fontFamily: {
+				sans: ['InterVariable', 'sans-serif'],
+				mono: ['Fira CodeVariable', 'monospace']
+			}
+		}
 	},
 	plugins: []
 };
