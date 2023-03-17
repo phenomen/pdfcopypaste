@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { ChatCompletionRequestMessage } from 'openai';
-
 	import TablerClipboardText from '~icons/tabler/clipboard-text';
 	import TablerTextWrap from '~icons/tabler/text-wrap';
 	import TablerEraser from '~icons/tabler/eraser';
@@ -41,11 +39,9 @@
 		} else if (userPrompt.length > 1500) {
 			errorMessage = 'The text length for AI cannot exceed 1500 characters.';
 		} else {
-			const prompt = `This text was copied from PDF. It has incorrect line and word breaks. Format it by joining strings and words where needed. Keep paragraphs. Do not add anything extra. Text: ${userPrompt}`;
-
 			const response = await fetch('/api/gpt', {
 				method: 'POST',
-				body: JSON.stringify({ prompt: prompt }),
+				body: JSON.stringify({ prompt: userPrompt }),
 				headers: {
 					'content-type': 'application/json'
 				}
@@ -69,11 +65,9 @@
 					}
 				} catch (err) {
 					errorMessage = 'Looks like OpenAI timed out :(';
-					loading = false;
 				}
 			} else {
 				errorMessage = await response.text();
-				loading = false;
 			}
 		}
 		loading = false;
