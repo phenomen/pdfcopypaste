@@ -1,6 +1,10 @@
 import { createParser, type ParseEvent } from 'eventsource-parser';
 import { OPENAI_API_KEY } from '$env/static/private';
 
+export const config = {
+	runtime: 'edge' // this is a pre-requisite
+};
+
 interface OpenAIChatPayload {
 	model: string;
 	messages: Array<{
@@ -41,18 +45,6 @@ async function OpenAIChatStream(prompt: string) {
 	const decoder = new TextDecoder();
 
 	let counter = 0;
-
-	// const testRes = await fetch('https://api.openai.com/v1/chat/completions', {
-	// 	headers: {
-	// 		'Content-Type': 'application/json',
-	// 		Authorization: `Bearer ${key}`
-	// 	},
-	// 	method: 'POST',
-	// 	body: JSON.stringify({ ...payload, stream: false })
-	// });
-
-	// const testJson = await testRes.json();
-	// console.log(testJson);
 
 	const res = await fetch('https://api.openai.com/v1/chat/completions', {
 		headers: {
