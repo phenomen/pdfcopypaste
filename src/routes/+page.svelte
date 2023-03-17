@@ -39,7 +39,7 @@
 			} else {
 				const data = { prompt: userPrompt };
 
-				const res = await fetch('/gpt', {
+				const res = await fetch('/api/gpt', {
 					method: 'POST',
 					body: JSON.stringify(data)
 				});
