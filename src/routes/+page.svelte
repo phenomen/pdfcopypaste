@@ -1,14 +1,16 @@
 <script lang="ts">
+	import type { ChatCompletionRequestMessage } from 'openai';
+
 	import TablerClipboardText from '~icons/tabler/clipboard-text';
 	import TablerTextWrap from '~icons/tabler/text-wrap';
 	import TablerEraser from '~icons/tabler/eraser';
 	import TablerBrandOpenai from '~icons/tabler/brand-openai';
 
 	let loading = false;
-	let autoClipboard = false;
-
+	let endStream = false;
 	let userPrompt = '';
 	let errorMessage: string | undefined = '';
+	let autoClipboard = false;
 
 	function copyClipboard(text: string) {
 		navigator.clipboard.writeText(text);
@@ -28,6 +30,56 @@
 	}
 
 	async function formatAI() {
+		if (loading) return;
+
+		loading = true;
+		endStream = false;
+		errorMessage = '';
+
+		if (userPrompt.length < 20) {
+			errorMessage = 'Text is too short.';
+		} else if (userPrompt.length > 1500) {
+			errorMessage = 'The text length for AI cannot exceed 1500 characters.';
+		} else {
+			const prompt = `This text was copied from PDF. It has incorrect line and word breaks. Format it by joining strings and words where needed. Keep paragraphs. Do not add anything extra. Text: ${userPrompt}`;
+
+			const response = await fetch('/api/gpt', {
+				method: 'POST',
+				body: JSON.stringify({ prompt: prompt }),
+				headers: {
+					'content-type': 'application/json'
+				}
+			});
+			if (response.ok) {
+				try {
+					const data = response.body;
+					if (!data) {
+						return;
+					}
+					const reader = data.getReader();
+					const decoder = new TextDecoder();
+					while (true) {
+						const { value, done } = await reader.read();
+						const chunkValue = decoder.decode(value);
+						userPrompt += chunkValue;
+						if (done) {
+							endStream = true;
+							break;
+						}
+					}
+				} catch (err) {
+					errorMessage = 'Looks like OpenAI timed out :(';
+					loading = false;
+				}
+			} else {
+				errorMessage = await response.text();
+				loading = false;
+			}
+		}
+		loading = false;
+	}
+
+	/* 	async function formatAI() {
 		try {
 			loading = true;
 			errorMessage = '';
@@ -61,7 +113,7 @@
 		} finally {
 			loading = false;
 		}
-	}
+	} */
 </script>
 
 <div>
