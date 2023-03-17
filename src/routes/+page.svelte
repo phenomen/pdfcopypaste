@@ -12,7 +12,7 @@
 	let autoClipboard = false;
 
 	let userPrompt = '';
-	let errorMessage: string | undefined = '';
+	let errorMessage: string = '';
 
 	function formatSimple() {
 		userPrompt = userPrompt

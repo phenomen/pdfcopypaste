@@ -1,8 +1,9 @@
 import { createParser, type ParseEvent } from 'eventsource-parser';
 import { OPENAI_API_KEY } from '$env/static/private';
 
+// Enable Vercel Edge Vunctions https://vercel.com/docs/concepts/functions/edge-functions
 export const config = {
-	runtime: 'edge' // this is a pre-requisite
+	runtime: 'edge'
 };
 
 interface OpenAIChatPayload {
@@ -66,7 +67,7 @@ async function OpenAIChatStream(prompt: string) {
 			function onParse(event: ParseEvent) {
 				if (event.type === 'event') {
 					const data = event.data;
-					// https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
+					// https://platform.openai.com/docs/api-reference/completions/create#completions/create-stream
 					if (data === '[DONE]') {
 						controller.close();
 						return;
