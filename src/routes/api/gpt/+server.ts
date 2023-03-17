@@ -30,7 +30,7 @@ async function OpenAIChatStream(prompt: string) {
 			}
 		],
 		temperature: 0,
-		max_tokens: 1000,
+		max_tokens: 500,
 		frequency_penalty: 0.0,
 		stream: true,
 		presence_penalty: 0.0,
