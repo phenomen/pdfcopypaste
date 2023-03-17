@@ -1,0 +1,7 @@
+{
+	"functions": {
+		"/gpt": {
+			"maxDuration": 30
+		}
+	}
+}
