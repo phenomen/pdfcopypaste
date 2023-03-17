@@ -1,6 +1,6 @@
 {
 	"functions": {
-		"/gpt": {
+		"gpt": {
 			"maxDuration": 10
 		}
 	}
