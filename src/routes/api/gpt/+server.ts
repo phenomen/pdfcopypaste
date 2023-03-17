@@ -9,7 +9,7 @@ async function OpenAIStream(payload: any) {
 
 	let counter = 0;
 
-	const res = await fetch('https://api.openai.com/v1/chat/completions', {
+	const res = await fetch('https://api.openai.com/v1/completions', {
 		headers: {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${key}`
@@ -33,7 +33,6 @@ async function OpenAIStream(payload: any) {
 						const text = json.choices[0].message.content;
 
 						if (counter < 2 && (text.match(/\n/) || []).length) {
-							// this is a prefix character (i.e., "\n\n"), do nothing
 							return;
 						}
 
@@ -61,27 +60,17 @@ async function OpenAIStream(payload: any) {
 export async function POST({ request }: { request: any }) {
 	const { prompt } = await request.json();
 
-	const messages = [];
-
-	messages.push({
-		role: 'system',
-		content:
-			'This text was copied from PDF. It has incorrect line and word breaks. Format it by joining strings and words where needed. Keep paragraphs. Do not add anything extra. Text:'
-	});
-	messages.push({ role: 'user', content: prompt });
-
 	const payload = {
 		model: 'gpt-3.5-turbo',
-		messages: messages,
+		prompt: prompt,
 		temperature: 0,
-		max_tokens: 500,
-		stream: true
+		max_tokens: 1000,
+		stream: true,
+		n: 1
 	};
 
 	console.log(payload);
-
 	const stream = await OpenAIStream(payload);
-
 	console.log(stream);
 	return new Response(stream);
 }
