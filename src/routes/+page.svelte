@@ -25,32 +25,39 @@
 	}
 
 	async function formatAI() {
-		loading = true;
-		errorMessage = '';
+		try {
+			loading = true;
+			errorMessage = '';
 
-		if (textCopy.length < 20) {
-			errorMessage = 'Text is too short.';
-		} else if (textCopy.length > 1500) {
-			errorMessage = 'The text length for AI formatting cannot exceed 1500 characters.';
-		} else {
-			const data = { textCopy };
-
-			const res = await fetch('/gpt', {
-				method: 'POST',
-				body: JSON.stringify(data),
-			});
-
-			const response = await res.json();
-
-			if (response.message.content !== undefined || response.message.content !== null) {
-				textCopy = response.message.content;
+			if (textCopy.length < 20) {
+				errorMessage = 'Text is too short.';
+			} else if (textCopy.length > 1500) {
+				errorMessage = 'The text length for AI formatting cannot exceed 1500 characters.';
 			} else {
-				console.log(response);
-				errorMessage = 'Something went wrong :(';
-			}
-		}
+				const data = { textCopy };
 
-		loading = false;
+				const res = await fetch('/gpt', {
+					method: 'POST',
+					body: JSON.stringify(data),
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				});
+
+				const response = await res.json();
+
+				if (response.message && response.message.content) {
+					textCopy = response.message.content;
+				} else {
+					errorMessage = 'Something went wrong :(';
+				}
+			}
+		} catch (error) {
+			console.error(error);
+			errorMessage = 'Something went wrong :(';
+		} finally {
+			loading = false;
+		}
 	}
 </script>
 
@@ -58,7 +65,7 @@
 	<h1 class="text-4xl font-bold uppercase">
 		<span class="text-blue-500">PDF</span>COPYPASTE
 	</h1>
-	<span class="text-gray-400">Automatic correction of line and word breaks</span>
+	<span class="text-gray-400 font-mono">automatic correction of line and word breaks</span>
 </div>
 
 <div>
@@ -67,8 +74,8 @@
 			id="textCopy"
 			name="textCopy"
 			disabled={loading}
-			placeholder="Paste your text here. Use the formatting tools below."
-			class=" h-96 w-full rounded border border-gray-600 p-2 disabled:cursor-not-allowed disabled:bg-gray-300"
+			placeholder="Paste your text here, then use the formatting tools below."
+			class=" h-96 w-full rounded border border-black p-2 disabled:cursor-not-allowed disabled:animate-pulse shadow-md"
 			bind:value={textCopy}
 			autocomplete="off"
 			required
@@ -78,7 +85,7 @@
 	<div class="mt-4 grid grid-cols-4 gap-1 sm:gap-2">
 		<button
 			type="button"
-			class="bg-blue-500 hover:bg-blue-600"
+			class="bg-emerald-500 hover:bg-emerald-600"
 			on:click={() => formatSimple()}><TablerTextWrap /> Quick Fix</button
 		>
 
@@ -91,13 +98,13 @@
 
 		<button
 			type="button"
-			class="bg-emerald-500 hover:bg-emerald-600"
+			class="bg-blue-500 hover:bg-blue-600 "
 			on:click={() => copyClipboard(textCopy)}><TablerClipboardText /> Copy</button
 		>
 
 		<button
 			type="button"
-			class="bg-red-500 hover:bg-red-600"
+			class="bg-red-600 hover:bg-red-700"
 			on:click={() => (textCopy = '')}><TablerEraser /> Clear</button
 		>
 	</div>
@@ -108,8 +115,8 @@
 </div>
 
 <div class="mx-auto mt-6 text-sm text-gray-500">
-	<p><strong>Quick Fix</strong> works instantly, but does not preserve paragraphs.</p>
-	<p><strong>AI Fix</strong> works slower, has a character limit, but preserves paragraphs.</p>
+	<p><strong>Quick Fix:</strong> instant, does not preserve paragraphs.</p>
+	<p><strong>AI Fix:</strong> slower, has a character limit, preserves paragraphs.</p>
 </div>
 
 <div class="mx-auto mt-20 text-sm text-gray-500 flex gap-6">
@@ -142,6 +149,6 @@
 
 <style lang="postcss">
 	button {
-		@apply flex w-full items-center justify-center gap-1 rounded-md py-2 text-xs font-medium text-white md:text-sm;
+		@apply flex w-full items-center font-mono justify-center gap-1 rounded-md py-2 text-xs text-white md:text-sm;
 	}
 </style>
