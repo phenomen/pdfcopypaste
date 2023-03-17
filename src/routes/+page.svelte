@@ -2,11 +2,10 @@
 	import TablerClipboardText from '~icons/tabler/clipboard-text';
 	import TablerTextWrap from '~icons/tabler/text-wrap';
 	import TablerEraser from '~icons/tabler/eraser';
-	import TablerBrandGithub from '~icons/tabler/brand-github';
 	import TablerBrandOpenai from '~icons/tabler/brand-openai';
-	import TablerBrandVercel from '~icons/tabler/brand-vercel';
 
 	let loading = false;
+	let autoClipboard = false;
 
 	let userPrompt = '';
 	let errorMessage: string | undefined = '';
@@ -22,6 +21,10 @@
 			.replace(//g, '')
 			.replace(/‑/g, '-')
 			.replace(/- /g, '');
+
+		if (autoClipboard) {
+			copyClipboard(userPrompt);
+		}
 	}
 
 	async function formatAI() {
@@ -45,6 +48,9 @@
 
 				if (response.message && response.message.content) {
 					userPrompt = response.message.content;
+					if (autoClipboard) {
+						copyClipboard(userPrompt);
+					}
 				} else {
 					errorMessage = 'Something went wrong :(';
 				}
@@ -57,13 +63,6 @@
 		}
 	}
 </script>
-
-<div class="my-6 text-center ">
-	<h1 class="text-4xl font-bold uppercase">
-		<span class="text-blue-500">PDF</span>COPYPASTE
-	</h1>
-	<span class="font-mono text-gray-400">automatic correction of line and word breaks</span>
-</div>
 
 <div>
 	<div class="mx-auto w-full gap-2">
@@ -109,29 +108,24 @@
 	</div>
 </div>
 
-<div class="mx-auto mt-6 text-sm text-gray-500">
+<div class="mx-auto mt-4 text-sm text-gray-500">
 	<p><strong>Quick Fix:</strong> instant, does not preserve paragraphs.</p>
 	<p>
 		<strong>AI Fix:</strong> slower, has a character limit, preserves paragraphs.
 	</p>
 </div>
 
-<div class="mx-auto mt-20 flex gap-6 text-sm text-gray-500">
-	<a
-		href="https://github.com/phenomen/pdfcopypaste"
-		class="flex gap-1 hover:text-gray-900"
-		target="_blank"
-	>
-		<TablerBrandGithub />
-		@phenomen</a
-	>
-	<a href="https://vercel.com/" class="flex gap-1 hover:text-gray-900" target="_blank">
-		<TablerBrandVercel />
-		Vercel</a
-	>
-
-	<a href="https://openai.com/" class="flex gap-1 hover:text-gray-900" target="_blank">
-		<TablerBrandOpenai />
-		OpenAI</a
-	>
+<div class="mx-auto mt-4 flex items-start">
+	<div class="flex h-6 items-center">
+		<input
+			id="autoClipboard"
+			name="autoClipboard"
+			type="checkbox"
+			class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600"
+			bind:checked={autoClipboard}
+		/>
+	</div>
+	<div class="ml-2 text-sm font-medium leading-6">
+		<label for="autoClipboard">Copy to clipboard after fix</label>
+	</div>
 </div>
