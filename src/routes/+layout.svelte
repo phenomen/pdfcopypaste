@@ -2,16 +2,21 @@
 	import '../app.css';
 	import '@fontsource/inter/variable.css';
 	import '@fontsource/fira-code/variable.css';
+	import { dev } from '$app/environment';
+	import { inject } from '@vercel/analytics';
 
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
-	import { dev } from '$app/environment';
-	import { inject } from '@vercel/analytics';
-
 	inject({ mode: dev ? 'development' : 'production' });
 </script>
 
-<Header />
-<slot />
-<Footer />
+<div class="mx-auto flex h-full w-full max-w-4xl flex-col px-2">
+	<Header />
+
+	<div class="flex flex-1 flex-col">
+		<slot />
+	</div>
+
+	<Footer />
+</div>

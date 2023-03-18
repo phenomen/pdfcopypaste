@@ -112,13 +112,13 @@
 			on:click={() => (userPrompt = userPromptBackup)}><TablerArrowBack /> Undo</button
 		>
 
-		<button type="button" class="bg-gray-600 hover:bg-gray-700" on:click={() => (userPrompt = '')}
+		<button type="button" class="bg-gray-400 hover:bg-gray-500" on:click={() => (userPrompt = '')}
 			><TablerEraser /> Clear</button
 		>
 	</div>
 
-	<div class="mt-4 text-center ">
-		<p class="text-sm font-medium text-gray-600">{errorMessage}</p>
+	<div class="mt-4 text-center text-sm font-medium text-gray-600">
+		<p>&nbsp;{errorMessage}&nbsp;</p>
 	</div>
 </div>
 

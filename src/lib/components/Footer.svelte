@@ -4,7 +4,7 @@
 	import TablerBrandVercel from '~icons/tabler/brand-vercel';
 </script>
 
-<div class="mx-auto mt-20 flex gap-6 text-sm text-gray-500">
+<div class="mx-auto mb-6 mt-20 flex gap-6 text-sm text-gray-500">
 	<a
 		href="https://github.com/phenomen/pdfcopypaste"
 		class="flex gap-1 hover:text-gray-900"
