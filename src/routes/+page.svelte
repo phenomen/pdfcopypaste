@@ -6,6 +6,7 @@
 
 	import TablerClipboardText from '~icons/tabler/clipboard-text';
 	import TablerTextWrap from '~icons/tabler/text-wrap';
+	import TablerArrowBack from '~icons/tabler/arrow-back';
 	import TablerEraser from '~icons/tabler/eraser';
 	import TablerBrandOpenai from '~icons/tabler/brand-openai';
 
@@ -108,7 +109,7 @@
 		<button
 			type="button"
 			class="bg-indigo-500 hover:bg-indigo-600"
-			on:click={() => (userPrompt = userPromptBackup)}><TablerEraser /> Undo</button
+			on:click={() => (userPrompt = userPromptBackup)}><TablerArrowBack /> Undo</button
 		>
 
 		<button type="button" class="bg-gray-600 hover:bg-gray-700" on:click={() => (userPrompt = '')}
