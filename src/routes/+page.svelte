@@ -38,8 +38,10 @@
 			errorMessage = 'Text is too short.';
 			return;
 		}
-		if (wordCount(userPrompt) > 150) {
-			errorMessage = 'Text length for AI formatting cannot exceed 150 words.';
+		if (wordCount(userPrompt) > 200) {
+			errorMessage = `Text length for AI formatting cannot exceed 200 words. You have used ${wordCount(
+				userPrompt
+			)} words.`;
 			return;
 		}
 
@@ -125,7 +127,7 @@
 <div class="mx-auto mt-4 text-sm text-gray-500">
 	<p><strong>Quick Fix:</strong> instant, does not preserve paragraphs.</p>
 	<p>
-		<strong>AI Fix:</strong> slower, 150 words limit, preserves paragraphs.
+		<strong>AI Fix:</strong> slower, 200 words limit, preserves paragraphs.
 	</p>
 </div>
 
