@@ -2,6 +2,7 @@
 	import { copy } from '$lib/utils/copy';
 	import { wordCount } from '$lib/utils/string';
 	import { fetchStream } from '$lib/utils/stream';
+	import { autoClipboard } from '$lib/stores/autoClipboard';
 
 	import TablerClipboardText from '~icons/tabler/clipboard-text';
 	import TablerTextWrap from '~icons/tabler/text-wrap';
@@ -9,12 +10,14 @@
 	import TablerBrandOpenai from '~icons/tabler/brand-openai';
 
 	let loading = false;
-	let autoClipboard = false;
 
 	let userPrompt = '';
-	let errorMessage: string = '';
+	let userPromptBackup = '';
+	let errorMessage = '';
 
 	function formatSimple() {
+		userPromptBackup = userPrompt;
+
 		userPrompt = userPrompt
 			.replace(/(\r\n|\n|\r|	)/g, ' ')
 			.replace(/( {2})/g, ' ')
@@ -32,35 +35,41 @@
 
 		if (wordCount(userPrompt) < 10) {
 			errorMessage = 'Text is too short.';
-		} else if (wordCount(userPrompt) > 150) {
-			errorMessage = 'Text length for AI formatting cannot exceed 150 words.';
-		} else {
-			errorMessage = '';
-			loading = true;
-			try {
-				const response = await fetch('/api/gpt', {
-					method: 'POST',
-					body: JSON.stringify({ prompt: userPrompt }),
-					headers: {
-						'content-type': 'application/json'
-					}
-				});
-				if (!response.ok) throw new Error('Response timeout. OpenAI GPT is too busy.');
-
-				userPrompt = '';
-
-				await fetchStream(response, (chunk) => {
-					userPrompt += chunk;
-				});
-
-				if (autoClipboard) {
-					copy(userPrompt);
-				}
-			} catch (err) {
-				errorMessage = 'Something went wrong :(';
-			}
-			loading = false;
+			return;
 		}
+		if (wordCount(userPrompt) > 150) {
+			errorMessage = 'Text length for AI formatting cannot exceed 150 words.';
+			return;
+		}
+
+		userPromptBackup = userPrompt;
+		errorMessage = '';
+		loading = true;
+
+		try {
+			const response = await fetch('/api/gpt', {
+				method: 'POST',
+				body: JSON.stringify({ prompt: userPrompt }),
+				headers: {
+					'content-type': 'application/json'
+				}
+			});
+			if (!response.ok) throw new Error('Response timeout. OpenAI GPT is too busy.');
+
+			userPrompt = '';
+
+			await fetchStream(response, (chunk) => {
+				userPrompt += chunk;
+			});
+
+			if (autoClipboard) {
+				copy(userPrompt);
+			}
+		} catch (err) {
+			errorMessage = 'Something went wrong :(';
+		}
+
+		loading = false;
 	}
 </script>
 
@@ -78,7 +87,7 @@
 		/>
 	</div>
 
-	<div class="mt-4 grid grid-cols-4 gap-1 sm:gap-2">
+	<div class="mt-4 grid grid-cols-5 gap-1 sm:gap-2">
 		<button
 			type="button"
 			class="bg-emerald-500 hover:bg-emerald-600"
@@ -96,7 +105,13 @@
 			><TablerClipboardText /> Copy</button
 		>
 
-		<button type="button" class="bg-red-600 hover:bg-red-700" on:click={() => (userPrompt = '')}
+		<button
+			type="button"
+			class="bg-indigo-500 hover:bg-indigo-600"
+			on:click={() => (userPrompt = userPromptBackup)}><TablerEraser /> Undo</button
+		>
+
+		<button type="button" class="bg-gray-600 hover:bg-gray-700" on:click={() => (userPrompt = '')}
 			><TablerEraser /> Clear</button
 		>
 	</div>
@@ -120,7 +135,7 @@
 			name="autoClipboard"
 			type="checkbox"
 			class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600"
-			bind:checked={autoClipboard}
+			bind:checked={$autoClipboard}
 		/>
 	</div>
 	<div class="ml-2 font-mono text-sm font-medium leading-6">
