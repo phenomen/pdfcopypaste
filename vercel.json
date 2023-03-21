@@ -1,8 +1,8 @@
 {
-  "functions": {
-    "/api/gpt": {
-      "maxDuration": 20,
-      "runtime": "edge"
-    }
-  }
+	"functions": {
+		"src/api/**/*.ts": {
+			"runtime": "edge",
+			"maxDuration": 20
+		}
+	}
 }
