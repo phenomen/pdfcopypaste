@@ -1,8 +1,0 @@
-{
-	"functions": {
-		"src/api/**/*.ts": {
-			"runtime": "edge",
-			"maxDuration": 20
-		}
-	}
-}

@@ -3,7 +3,9 @@ import { OPENAI_API_KEY } from '$env/static/private';
 
 // Enable Vercel Edge Vunctions https://vercel.com/docs/concepts/functions/edge-functions
 export const config = {
-	runtime: 'edge'
+	runtime: 'edge',
+	regions: ['sfo1'],
+	maxDuration: 20
 };
 
 interface OpenAIChatPayload {
@@ -27,7 +29,7 @@ async function OpenAIChatStream(prompt: string) {
 			{
 				role: 'system',
 				content:
-					'This text was copied from PDF. It has incorrect line and word breaks. Format it by joining strings and words where needed. Keep paragraphs. Do not add anything extra. Text:'
+					'This text has incorrect line and word breaks. Format it by joining strings and hyphenated words where needed. Keep paragraphs. Do not add anything extra. Text:'
 			},
 			{
 				role: 'user',
