@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "/api/gpt": {
+      "maxDuration": 20,
+      "runtime": "edge"
+    }
+  }
+}
