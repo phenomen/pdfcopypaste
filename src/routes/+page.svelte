@@ -26,7 +26,7 @@
 			.replace(/‑/g, '-')
 			.replace(/- /g, '');
 
-		if (autoClipboard) {
+		if ($autoClipboard === true) {
 			copy(userPrompt);
 		}
 	}
@@ -65,7 +65,7 @@
 				userPrompt += chunk;
 			});
 
-			if (autoClipboard) {
+			if ($autoClipboard === true) {
 				copy(userPrompt);
 			}
 		} catch (err) {
@@ -104,7 +104,7 @@
 			disabled={loading}><TablerBrandOpenai /> AI Fix</button
 		>
 
-		<button type="button" class="bg-blue-500 hover:bg-blue-600 " on:click={() => copy(userPrompt)}
+		<button type="button" class="bg-blue-500 hover:bg-blue-600" on:click={() => copy(userPrompt)}
 			><TablerClipboardText /> Copy</button
 		>
 
