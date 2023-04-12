@@ -13,8 +13,8 @@ dependencies:
 
 devDependencies:
   '@iconify-json/tabler':
-    specifier: ^1.1.71
-    version: 1.1.71
+    specifier: ^1.1.72
+    version: 1.1.72
   '@sveltejs/adapter-auto':
     specifier: ^2.0.0
     version: 2.0.0(@sveltejs/kit@1.15.4)
@@ -352,8 +352,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@iconify-json/tabler@1.1.71:
-    resolution: {integrity: sha512-AB4z787TbdV6j2sHuE6GyS+x33P3/iY+WsC9O7yO7EVV1aZSK88XSmMHjHYkDX0tzb0kM1n/THHGfNjqznI85w==}
+  /@iconify-json/tabler@1.1.72:
+    resolution: {integrity: sha512-pOlgdfmyjPO9VkylpSw07M31U5XT2TIIZfk1QZo8G3I03MNZO9o8/ANMpLxnm6M2WdxVP8ho808vCj1nR3Nj1g==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
@@ -712,7 +712,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.5
-      caniuse-lite: 1.0.30001477
+      caniuse-lite: 1.0.30001478
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -748,8 +748,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001477
-      electron-to-chromium: 1.4.358
+      caniuse-lite: 1.0.30001478
+      electron-to-chromium: 1.4.359
       node-releases: 2.0.10
       update-browserslist-db: 1.0.10(browserslist@4.21.5)
     dev: true
@@ -775,8 +775,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /caniuse-lite@1.0.30001477:
-    resolution: {integrity: sha512-lZim4iUHhGcy5p+Ri/G7m84hJwncj+Kz7S5aD4hoQfslKZJgt0tHc/hafVbqHC5bbhHb+mrW2JOUHkI5KH7toQ==}
+  /caniuse-lite@1.0.30001478:
+    resolution: {integrity: sha512-gMhDyXGItTHipJj2ApIvR+iVB5hd0KP3svMWWXDvZOmjzJJassGLMfxRkQCSYgGd2gtdL/ReeiyvMSFD1Ss6Mw==}
     dev: true
 
   /chalk@4.1.2:
@@ -894,8 +894,8 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /electron-to-chromium@1.4.358:
-    resolution: {integrity: sha512-dbqpWy662dGVwq27q8i6+t5FPcQiFPs/VExXJ+/T9Xp9KUV0b5bvG+B/i07FNNr7PgcN3GhZQCZoYJ9EUfnIOg==}
+  /electron-to-chromium@1.4.359:
+    resolution: {integrity: sha512-OoVcngKCIuNXtZnsYoqlCvr0Cf3NIPzDIgwUfI9bdTFjXCrr79lI0kwQstLPZ7WhCezLlGksZk/BFAzoXC7GDw==}
     dev: true
 
   /es6-promise@3.3.1:
