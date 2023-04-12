@@ -5,3 +5,7 @@
 button {
 	@apply flex w-full items-center justify-center gap-1 rounded-md py-2 font-mono text-xs text-white md:text-sm;
 }
+
+button svg {
+	@apply hidden sm:inline-block;
+}

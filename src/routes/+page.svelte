@@ -124,13 +124,6 @@
 	</div>
 </div>
 
-<div class="mx-auto mt-4 text-sm text-gray-500">
-	<p><strong>Quick Fix:</strong> instant, does not preserve paragraphs.</p>
-	<p>
-		<strong>AI Fix:</strong> slower, 200 words limit, preserves paragraphs.
-	</p>
-</div>
-
 <div class="mx-auto mt-4 flex items-start">
 	<div class="flex h-6 items-center">
 		<input
@@ -144,4 +137,11 @@
 	<div class="ml-2 font-mono text-sm font-medium leading-6">
 		<label for="autoClipboard">Copy to clipboard after fix</label>
 	</div>
+</div>
+
+<div class="mx-auto mt-4 text-sm text-gray-500">
+	<p><strong>Quick Fix:</strong> instant, does not preserve paragraphs.</p>
+	<p>
+		<strong>AI Fix:</strong> slower, 200 words limit, preserves paragraphs.
+	</p>
 </div>

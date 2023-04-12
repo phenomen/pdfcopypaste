@@ -11,7 +11,7 @@
 	inject({ mode: dev ? 'development' : 'production' });
 </script>
 
-<div class="mx-auto flex h-full w-full max-w-4xl flex-col px-2">
+<div class="mx-auto flex w-full max-w-4xl flex-col px-2">
 	<Header />
 
 	<div class="flex flex-1 flex-col">
