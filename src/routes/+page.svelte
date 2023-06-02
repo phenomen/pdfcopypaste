@@ -4,11 +4,12 @@
 	import { fetchStream } from '$lib/utils/stream';
 	import { autoClipboard } from '$lib/stores/autoClipboard';
 
-	import TablerClipboardText from '~icons/tabler/clipboard-text';
-	import TablerTextWrap from '~icons/tabler/text-wrap';
-	import TablerArrowBack from '~icons/tabler/arrow-back';
-	import TablerEraser from '~icons/tabler/eraser';
-	import TablerBrandOpenai from '~icons/tabler/brand-openai';
+	import { Button } from '$components/ui/button';
+	import { Textarea } from '$components/ui/textarea';
+	import { Checkbox } from '$components/ui/checkbox';
+	import { Label } from '$components/ui/label';
+
+	import { AtomIcon, ClipboardTypeIcon, Undo2Icon, EraserIcon, WrapTextIcon } from 'lucide-svelte';
 
 	let loading = false;
 
@@ -39,7 +40,7 @@
 			return;
 		}
 		if (wordCount(userPrompt) > 300) {
-			errorMessage = `Text length for AI formatting cannot exceed 200 words. You have used ${wordCount(
+			errorMessage = `Text length for AI formatting cannot exceed 300 words. You have used ${wordCount(
 				userPrompt
 			)} words.`;
 			return;
@@ -77,69 +78,57 @@
 </script>
 
 <div>
-	<div class="mx-auto w-full gap-2">
-		<textarea
-			id="userPrompt"
-			name="userPrompt"
-			disabled={loading}
-			placeholder="Paste your text here, then use the formatting tools below."
-			class=" h-96 w-full rounded border border-black p-2 shadow-md disabled:cursor-not-allowed disabled:bg-gray-200"
-			bind:value={userPrompt}
-			autocomplete="off"
-			required
-		/>
-	</div>
+	<Textarea
+		disabled={loading}
+		id="userPrompt"
+		name="userPrompt"
+		placeholder="Paste your text here, then use the formatting tools below."
+		autocomplete="off"
+		class="h-40 md:h-60"
+		required
+		bind:value={userPrompt}
+	/>
 
 	<div class="mt-4 grid grid-cols-5 gap-1 sm:gap-2">
-		<button
-			type="button"
-			class="bg-emerald-500 hover:bg-emerald-600"
-			on:click={() => formatSimple()}><TablerTextWrap /> Quick Fix</button
-		>
+		<Button on:click={() => formatSimple()} disabled={loading}>
+			<WrapTextIcon class="mr-2 h-4 w-4" />
+			Quick Fix
+		</Button>
 
-		<button
-			type="button"
-			on:click={() => formatAI()}
-			class="bg-gray-900 hover:bg-black disabled:animate-pulse disabled:cursor-not-allowed"
-			disabled={loading}><TablerBrandOpenai /> AI Fix</button
-		>
+		<Button on:click={() => formatAI()} disabled={loading}>
+			<AtomIcon class="mr-2 h-4 w-4" />
+			AI Fix
+		</Button>
 
-		<button type="button" class="bg-blue-500 hover:bg-blue-600" on:click={() => copy(userPrompt)}
-			><TablerClipboardText /> Copy</button
-		>
+		<Button variant="outline" on:click={() => copy(userPrompt)} disabled={loading}>
+			<ClipboardTypeIcon class="mr-2 h-4 w-4" />
+			Copy
+		</Button>
 
-		<button
-			type="button"
-			class="bg-indigo-500 hover:bg-indigo-600"
-			on:click={() => (userPrompt = userPromptBackup)}><TablerArrowBack /> Undo</button
-		>
+		<Button variant="outline" on:click={() => (userPrompt = userPromptBackup)} disabled={loading}>
+			<Undo2Icon class="mr-2 h-4 w-4" />
+			Undo
+		</Button>
 
-		<button type="button" class="bg-gray-400 hover:bg-gray-500" on:click={() => (userPrompt = '')}
-			><TablerEraser /> Clear</button
-		>
-	</div>
+		<Button variant="outline" on:click={() => (userPrompt = '')} disabled={loading}>
+			<EraserIcon class="mr-2 h-4 w-4" />
+			Clear
+		</Button>
 
-	<div class="mt-4 text-center text-sm font-medium text-gray-600">
-		<p>&nbsp;{errorMessage}&nbsp;</p>
+		<div class="mt-4 text-center text-sm font-medium text-gray-600">
+			<p>&nbsp;{errorMessage}&nbsp;</p>
+		</div>
 	</div>
 </div>
 
-<div class="mx-auto mt-4 flex items-start">
-	<div class="flex h-6 items-center">
-		<input
-			id="autoClipboard"
-			name="autoClipboard"
-			type="checkbox"
-			class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-600"
-			bind:checked={$autoClipboard}
-		/>
-	</div>
-	<div class="ml-2 font-mono text-sm font-medium leading-6">
-		<label for="autoClipboard">Copy to clipboard after fix</label>
+<div class="mx-auto mt-4">
+	<div class="flex items-center space-x-2">
+		<Checkbox id="autoClipboard" name="autoClipboard" bind:checked={$autoClipboard} />
+		<Label for="autoClipboard">Copy to clipboard after fix</Label>
 	</div>
 </div>
 
-<div class="mx-auto mt-4 text-sm text-gray-500">
+<div class="mx-auto mt-6 text-sm text-gray-500">
 	<p><strong>Quick Fix:</strong> instant, does not preserve paragraphs.</p>
 	<p>
 		<strong>AI Fix:</strong> slower, 300 words limit, preserves paragraphs.
